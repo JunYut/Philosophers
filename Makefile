@@ -12,7 +12,7 @@ all: $(MAIN)
 	./$<
 
 $(MAIN): $(SRCS)
-	$(CC) $(CFLAGS) $(SRCS) -o $(MAIN)
+	$(CC) $(CFLAGS) $(SRCS) -o $(MAIN) -lpthread
 
 clean:
 	rm -rf $(MAIN)
