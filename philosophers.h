@@ -12,6 +12,8 @@ typedef struct vars
 	int				content;
 }				vars;
 
+long	get_time_ms(void);
+
 void	*func1(void *arg);
 void	*func2(void *arg);
 void	*func3(void *arg);
