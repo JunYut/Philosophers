@@ -1,25 +1,23 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
+# include "philosophers.h"
 
-void* print_hello(void* data)
+int main(void)
 {
-    printf("Hello, World!\n");
-	(void)data;
-    return NULL;
-}
+	pthread_t	thread[5];
+	void		*(*func[5])(void *) = {func1, func2, func3, func4, func5};
+	vars		arg;
 
-int main()
-{
-    pthread_t thread_id;
-
-    if (pthread_create(&thread_id, NULL, &print_hello, NULL) != 0)
+	get_time_ms();
+	pthread_mutex_init(&arg.mutex, NULL);
+	for (int i = 0; i < 5; i++)
 	{
-        fprintf(stderr, "Failed to create thread\n");
-        return 1;
-    }
+		pthread_create(&thread[i], NULL, func[i], &arg);
+		pthread_join(thread[i], NULL);	// Comment this
+	}
+	// for (int i = 0; i < 5; i++)
+		// pthread_join(thread[i], NULL);
+	pthread_mutex_destroy(&arg.mutex);
 
-    pthread_join(thread_id, NULL);
+	printf("data: %d\n", arg.content);
 
-    return 0;
+	return (0);
 }

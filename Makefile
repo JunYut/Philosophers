@@ -1,18 +1,38 @@
-# Compiler and Flags
+# Compiler & Flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pedantic -g
+CFLAGS = -Wall -Wextra -Werror -pedantic
 
-# Sources
-SRCS = main.c
+# Directories
+SRCDIR = src
+OBJDIR = obj
 
-# Targets
+# Files
+SRC = $(wildcard $(SRCDIR)/*.c)
+OBJ = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+HEADERS = $(wildcard *.h)
+LIBPHILO = libphilo.a
 MAIN = main
 
+# Rules & Recipes
 all: $(MAIN)
-	./$<
 
-$(MAIN): $(SRCS)
-	$(CC) $(CFLAGS) $(SRCS) -o $(MAIN) -lpthread
+$(MAIN): main.c $(LIBPHILO)
+	$(CC) $(CFLAGS) -o $@ main.c -L. -lphilo
+
+$(LIBPHILO): $(OBJ)
+	ar rcs $(LIBPHILO) $(OBJ)
+	ranlib $(LIBPHILO)
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)
+	mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
-	rm -rf $(MAIN)
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(LIBPHILO) $(MAIN)
+
+re: fclean all
+
+.PHONY: all clean fclean re
