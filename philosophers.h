@@ -6,6 +6,12 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+typedef struct vars
+{
+	pthread_mutex_t	mutex;
+	int				content;
+}				vars;
+
 void	*func1(void *arg);
 void	*func2(void *arg);
 void	*func3(void *arg);
