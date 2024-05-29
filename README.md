@@ -29,6 +29,7 @@ Any state change of a philosopher must be formatted as follows:
 - `timestamp_in_ms` `X` is sleeping
 - `timestamp_in_ms` `X` is thinking
 - `timestamp_in_ms` `X` died
+
 Replace `timestamp_in_ms` with the current timestamp in milliseconds
 and `X` with the philosopher number.
 - A displayed state message should not be mixed up with another message.
@@ -82,5 +83,7 @@ after the actual death of the philosopher.
    - `argc` must be `4` or `5`
    - all arguments should be in `integer` format
    - `number_of_philosophers` should be at least `1`
-2. Initialize components\
+2. Initialize components
+	- a struct that holds the state of the `philosophers` and the availability of `forks`
+	- a struct that represents the environment
 3. Start simulation
