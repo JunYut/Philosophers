@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/05/29 17:13:24 by we               ###   ########.fr       */
+/*   Updated: 2024/05/29 17:58:19 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,17 @@ typedef struct s_table
 
 void	schedule(t_table *table);
 void	*philo_routine(void *arg);
-void	eat(t_philo *philo);
-void	sleep(t_philo *philo);
-void	think(t_philo *philo);
-void	die(t_philo *philo);
+void	p_eat(t_philo *philo);
+void	p_sleep(t_philo *philo);
+void	p_think(t_philo *philo);
+void	p_die(t_philo *philo);
 void	log_activity(char *msg, int id);
 void	init_env(t_table *table, int philo_count);
 void	clean_up(t_table *table);
-int		get_time_ms(void);
-int		ft_atoi(const char *str);
-void	*ft_malloc(void *ptr, size_t size);
+
+long	get_time_ms(void);
+void	*ft_malloc(size_t size);
+long	ft_atoi(const char *str);
+int		ft_strlen(const char *str);
 
 #endif

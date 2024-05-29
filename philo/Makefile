@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -pedantic
 # Directories
 SRC_DIR = src
 OBJ_DIR = obj
-INC_DIR = inc
+INC_DIR = .
 
 # Files
 SRC = $(wildcard $(SRC_DIR)/*.c)
