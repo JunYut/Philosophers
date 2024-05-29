@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/05/29 16:56:37 by we               ###   ########.fr       */
+/*   Updated: 2024/05/29 17:13:24 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void	init_env(t_table *table, int philo_count);
 void	clean_up(t_table *table);
 int		get_time_ms(void);
 int		ft_atoi(const char *str);
+void	*ft_malloc(void *ptr, size_t size);
 
 #endif
