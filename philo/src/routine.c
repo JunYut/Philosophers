@@ -6,8 +6,14 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/05/30 10:27:00 by we               ###   ########.fr       */
+/*   Updated: 2024/05/30 11:52:38 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	p_eat(t_philo *philo, t_table *table)
+{
+	(void)table;
+	(void)philo;
+}
