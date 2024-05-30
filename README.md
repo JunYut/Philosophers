@@ -78,6 +78,8 @@ after the actual death of the philosopher.
 	3. sleep -> think -> eat
 	```
 
+10. After `eating` & `sleeping`, the philosopher will `think` for an `uncertain amount of time` until they `eat` again.
+
 ## Pseudocode
 1. Input validation
    - `argc` must be `4` or `5`
