@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/05/30 10:31:02 by we               ###   ########.fr       */
+/*   Updated: 2024/05/30 10:43:17 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	p_think(t_philo *philo);
 void	p_die(t_philo *philo);
 
 void	init_env(t_table *table, int philo_count);
+t_philo	*init_philos(int count);
 void	clean_up(t_table *table);
 
 void	log_activity(long start_time, int id, char *msg);
