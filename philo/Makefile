@@ -16,7 +16,7 @@ PHILO = philo
 # Rules & Recipes
 all: $(PHILO)
 
-$(PHILO): $(LIBPHILO)
+$(PHILO): $(LIBPHILO) main.c
 	$(CC) $(CFLAGS) -o $@ main.c -L. -lphilo -lpthread
 
 $(LIBPHILO): $(OBJ)
