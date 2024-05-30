@@ -6,11 +6,16 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:21:15 by we                #+#    #+#             */
-/*   Updated: 2024/05/30 08:59:59 by we               ###   ########.fr       */
+/*   Updated: 2024/05/30 10:31:26 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	log_activity(long start_time, int id, char *msg)
+{
+	printf("%ldms: %d %s\n", get_time_ms() - start_time, id, msg);
+}
 
 long	get_time_ms(void)
 {

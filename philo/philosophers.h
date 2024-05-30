@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/05/29 17:58:19 by we               ###   ########.fr       */
+/*   Updated: 2024/05/30 10:31:02 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdio.h>
+# include <string.h>
 # include <stdlib.h>
 # include <sys/time.h>
 # include <pthread.h>
@@ -40,8 +41,8 @@ typedef struct s_philo
 typedef struct s_table
 {
 	t_philo	*philo;
-	int		*fork;
-	int		start_time;
+	char	*fork;
+	long	start_time;
 	int		philo_count;
 }	t_table;
 
@@ -51,10 +52,11 @@ void	p_eat(t_philo *philo);
 void	p_sleep(t_philo *philo);
 void	p_think(t_philo *philo);
 void	p_die(t_philo *philo);
-void	log_activity(char *msg, int id);
+
 void	init_env(t_table *table, int philo_count);
 void	clean_up(t_table *table);
 
+void	log_activity(long start_time, int id, char *msg);
 long	get_time_ms(void);
 void	*ft_malloc(size_t size);
 long	ft_atoi(const char *str);
