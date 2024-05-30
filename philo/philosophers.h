@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/05/30 11:52:11 by we               ###   ########.fr       */
+/*   Updated: 2024/05/30 16:03:25 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,21 @@ typedef struct s_table
 	t_philo			*philos;
 	char			*forks;
 	long			start_time;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				must_eat_count;
 	int				philo_count;
 }	t_table;
 
 void	schedule(t_table *table);
 void	*philo_routine(void *arg);
-void	p_eat(t_philo *philo, t_table *table);
-void	p_sleep(t_philo *philo, t_table *table);
-void	p_think(t_philo *philo, t_table *table);
-void	p_die(t_philo *philo, t_table *table);
+void	p_eat(t_philo *philo, int time_to_eat, int start_time);
+void	p_sleep(t_philo *philo, int time_to_sleep, int start_time);
+void	p_think(t_philo *philo, int start_time);
+void	p_die(t_philo *philo, int start_time);
 
-void	init_env(t_table *table, int philo_count);
+void	init_env(t_table *table, char *argv[]);
 t_philo	*init_philos(char *forks, int count);
 char	*init_forks(int count);
 void	clean_up(t_table *table);
