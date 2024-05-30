@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:21:15 by we                #+#    #+#             */
-/*   Updated: 2024/05/29 17:45:30 by we               ###   ########.fr       */
+/*   Updated: 2024/05/30 08:59:59 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,15 @@ void	*ft_malloc(size_t size)
 long	ft_atoi(const char *str)
 {
 	long	num;
-	int		tens;
 	int		i;
 
 	num = 0;
-	tens = 1;
 	i = -1;
+	if (str[0] == '-')
+		++i;
 	while (++i < ft_strlen(str))
 	{
-		num = num + str[i] - '0' * tens;
-		tens *= 10;
+		num = num * 10 + str[i] - '0';
 	}
 	if (str[0] == '-')
 		num *= -1;
@@ -60,6 +59,6 @@ int	ft_strlen(const char *str)
 
 	len = 0;
 	while (str[len])
-		len++;
+		++len;
 	return (len);
 }
