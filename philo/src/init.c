@@ -6,18 +6,23 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/05/30 11:52:20 by we               ###   ########.fr       */
+/*   Updated: 2024/05/30 15:24:28 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	init_env(t_table *table, int philo_count)
+void	init_env(t_table *table, char *argv[])
 {
-	table->forks = init_forks(philo_count);
-	table->philos = init_philos(table->forks, philo_count);
+	table->philo_count = ft_atoi(argv[1]);
+	table->forks = init_forks(table->philo_count);
+	table->philos = init_philos(table->forks, table->philo_count);
 	table->start_time = get_time_ms();
-	table->philo_count = philo_count;
+	table->time_to_die = ft_atoi(argv[2]);
+	table->time_to_eat = ft_atoi(argv[3]);
+	table->time_to_sleep = ft_atoi(argv[4]);
+	if (table->must_eat_count)
+		table->must_eat_count = ft_atoi(argv[5]);
 	pthread_mutex_init(&table->monitor, NULL);
 }
 
