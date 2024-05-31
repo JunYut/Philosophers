@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/05/31 16:13:04 by we               ###   ########.fr       */
+/*   Updated: 2024/05/31 17:16:39 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ t_philo	*init_philos(char *forks, int count)
 // '0' represents a fork that is not being used
 char	*init_forks(int count)
 {
-	char	*fork;
+	char	*forks;
 
-	fork = (char *)ft_malloc(count);
-	memset(fork, 0, count);
-	return (fork);
+	forks = (char *)ft_malloc(count);
+	memset(forks, 0, count);
+	return (forks);
 }
 
 void	clean_up(t_table *table)

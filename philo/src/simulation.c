@@ -6,15 +6,28 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/05/31 16:31:57 by we               ###   ########.fr       */
+/*   Updated: 2024/05/31 17:52:54 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	start_sim(t_table *table)
+void	start_simulation(t_table *table)
 {
+	pthread_t	threads[table->philo_count];
+	t_table *t = table;
+	int			i;
 
+	i = -1;
+	while (++i < table->philo_count)
+	{
+		pthread_create(&threads[i], NULL, philo_routine, t);
+		t->philos++;
+	}
+	t->philos -= i;
+	i = -1;
+	while (++i < table->philo_count)
+		pthread_join(threads[i], NULL);
 }
 
 void	*philo_routine(void	*arg)

@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/05/31 16:04:34 by we               ###   ########.fr       */
+/*   Updated: 2024/05/31 17:38:08 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ enum e_state
 	THINKING = 3
 };
 
+
+// Don't need to free 'left_fork' and 'right_fork'
 typedef struct s_philo
 {
-	pthread_t	thread;
 	int			id;
 	char		state;
 	char		*left_fork;
@@ -51,7 +52,7 @@ typedef struct s_table
 	int				philo_count;
 }	t_table;
 
-void	start_sim(t_table *table);
+void	start_simulation(t_table *table);
 void	*philo_routine(void *arg);
 void	p_eat(t_philo *philo, int time_to_eat, int start_time);
 void	p_take_fork(t_philo *philo, int start_time);
@@ -63,6 +64,8 @@ void	init_env(t_table *table, char *argv[]);
 t_philo	*init_philos(char *forks, int count);
 char	*init_forks(int count);
 void	clean_up(t_table *table);
+
+void	print_id(t_philo *philos, int count);
 
 void	log_activity(long start_time, int id, char *msg);
 long	get_time_ms(void);

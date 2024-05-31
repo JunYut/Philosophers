@@ -1,6 +1,6 @@
 # Compiler & Flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pedantic
+CFLAGS = -Wall -Wextra -Werror -pedantic -g
 
 # Directories
 SRC_DIR = src
