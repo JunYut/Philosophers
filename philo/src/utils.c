@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:21:15 by we                #+#    #+#             */
-/*   Updated: 2024/05/31 16:39:08 by we               ###   ########.fr       */
+/*   Updated: 2024/05/31 18:17:00 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	log_activity(long start_time, int id, char *msg)
 {
-	printf("%ldms: %d %s\n", get_time_ms() - start_time, id, msg);
+	long	current_time;
+
+	current_time = get_time_ms();
+	printf("%ldms: %d %s\n", current_time - start_time, id, msg);
 }
 
 long	get_time_ms(void)
