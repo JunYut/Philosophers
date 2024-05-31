@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:21:15 by we                #+#    #+#             */
-/*   Updated: 2024/05/30 10:31:26 by we               ###   ########.fr       */
+/*   Updated: 2024/05/31 16:39:08 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*ft_malloc(size_t size)
 	if (!new_ptr)
 	{
 		write(2, "malloc failed\n", 14);
-		exit(1);
+		return (NULL);
 	}
 	return (new_ptr);
 }
