@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 14:33:52 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/05/31 15:58:11 by we               ###   ########.fr       */
+/*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
+/*   Updated: 2024/05/31 16:31:57 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int argc, char *argv[])
+void	start_sim(t_table *table)
 {
-	(void)argc;
-	(void)argv;
 
-	t_table	table;
-	char *args[] = {0, "5", "800", "200", "200", "7"};
+}
 
-	init_env(&table, args);
-	philo_routine(&table);
-	clean_up(&table);
+void	*philo_routine(void	*arg)
+{
+	t_table		*t;
+	t_philo		*p;
+
+	t = (t_table *)arg;
+	p = t->philos;
+	while (p->state != DEAD || p->eat_count < t->must_eat_count)
+	{
+		p_think(p, t->start_time);
+		while (p->left_fork != 0 || p->right_fork != 0)
+			p_take_fork(p, t->start_time);
+		p_eat(p, t->time_to_eat, t->start_time);
+		p_sleep(p, t->time_to_sleep, t->start_time);
+	}
+	return (NULL);
 }

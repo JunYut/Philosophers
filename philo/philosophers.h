@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/05/30 16:03:25 by we               ###   ########.fr       */
+/*   Updated: 2024/05/31 16:04:34 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ typedef struct s_table
 	int				philo_count;
 }	t_table;
 
-void	schedule(t_table *table);
+void	start_sim(t_table *table);
 void	*philo_routine(void *arg);
 void	p_eat(t_philo *philo, int time_to_eat, int start_time);
+void	p_take_fork(t_philo *philo, int start_time);
 void	p_sleep(t_philo *philo, int time_to_sleep, int start_time);
 void	p_think(t_philo *philo, int start_time);
 void	p_die(t_philo *philo, int start_time);
