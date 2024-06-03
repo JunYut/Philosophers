@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/05/31 17:16:39 by we               ###   ########.fr       */
+/*   Updated: 2024/06/03 15:10:05 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_env(t_table *table, char *argv[])
 	pthread_mutex_init(&table->monitor, NULL);
 }
 
-t_philo	*init_philos(char *forks, int count)
+t_philo	*init_philos(int *forks, int count)
 {
 	t_philo	*philos;
 	int		i;
@@ -45,11 +45,11 @@ t_philo	*init_philos(char *forks, int count)
 }
 
 // '0' represents a fork that is not being used
-char	*init_forks(int count)
+int	*init_forks(int count)
 {
-	char	*forks;
+	int	*forks;
 
-	forks = (char *)ft_malloc(count);
+	forks = (int *)ft_malloc(count);
 	memset(forks, 0, count);
 	return (forks);
 }

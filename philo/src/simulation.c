@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/05/31 18:16:45 by we               ###   ########.fr       */
+/*   Updated: 2024/06/03 15:06:18 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ void	start_simulation(t_table *table)
 	t_table *t = table;
 	int			i;
 
+	print_forks(t->forks, t->philo_count);	// Debug
 	i = -1;
 	while (++i < table->philo_count)
 	{
 		pthread_create(&threads[i], NULL, philo_routine, t);
 		t->philos++;
+		pthread_join(threads[i], NULL);
 	}
 	t->philos -= i;
 	i = -1;
@@ -40,8 +42,9 @@ void	*philo_routine(void	*arg)
 	while (p->state != DEAD || p->eat_count < t->must_eat_count)
 	{
 		p_think(p, t->start_time);
-		while (p->left_fork != 0 || p->right_fork != 0)
+		while (*p->left_fork != p->id % 2 + 2 || *p->right_fork != p->id % 2 + 2)
 			p_take_fork(p, t->start_time);
+		print_forks(t->forks, t->philo_count);	// Debug
 		p_eat(p, t->time_to_eat, t->start_time);
 		p_sleep(p, t->time_to_sleep, t->start_time);
 	}

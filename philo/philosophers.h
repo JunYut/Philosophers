@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/03 11:56:08 by we               ###   ########.fr       */
+/*   Updated: 2024/06/03 15:09:57 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct s_philo
 {
 	int			id;
 	char		state;
-	char		*left_fork;
-	char		*right_fork;
+	int			*left_fork;
+	int			*right_fork;
 	int			eat_count;
 }	t_philo;
 
@@ -43,7 +43,7 @@ typedef struct s_table
 {
 	pthread_mutex_t	monitor;
 	t_philo			*philos;
-	char			*forks;
+	int				*forks;
 	long			start_time;
 	int				time_to_die;
 	int				time_to_eat;
@@ -61,8 +61,8 @@ void	p_think(t_philo *philo, long start_time);
 void	p_die(t_philo *philo, long start_time);
 
 void	init_env(t_table *table, char *argv[]);
-t_philo	*init_philos(char *forks, int count);
-char	*init_forks(int count);
+t_philo	*init_philos(int *forks, int count);
+int		*init_forks(int count);
 void	clean_up(t_table *table);
 
 void	print_forks(char *forks, int count);
