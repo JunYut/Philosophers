@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/03 15:25:53 by we               ###   ########.fr       */
+/*   Updated: 2024/06/03 15:46:40 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,43 @@ void	start_simulation(t_table *table)
 {
 	pthread_t	threads[table->philo_count];
 	t_table *t = table;
+	int			philo_count;
 	int			i;
 
 	print_forks(t->forks, t->philo_count);	// Debug
+	philo_count = table->philo_count;
 	i = -1;
 	while (++i < table->philo_count)
 	{
 		pthread_create(&threads[i], NULL, philo_routine, t);
 		t->philos++;
-		pthread_join(threads[i], NULL);
+		pthread_join(threads[i], NULL);	// Debug
 	}
 	t->philos -= i;
 	i = -1;
 	while (++i < table->philo_count)
 		pthread_join(threads[i], NULL);
+	if (philo_count != table->philo_count)
+		printf("Simulation ended\n");
 }
 
 void	*philo_routine(void	*arg)
 {
 	t_table		*t;
 	t_philo		*p;
+	int			philo_count;
 	int			i;
 
 	t = (t_table *)arg;
 	p = t->philos;
+	philo_count = t->philo_count;
 	i = -1;
-	printf("id: %d\n", p->id);	// Debug
-	printf("left_fork (%p): %d\n", (void *)(p->left_fork), *p->left_fork);	// Debug
-	printf("right_fork (%p): %d\n", (void *)(p->right_fork), *p->right_fork);	// Debug
-	printf("must_eat_count: %d\n", t->must_eat_count);	// Debug
-	while ((p->state != DEAD || p->eat_count < t->must_eat_count)
-		&& ++i < t->must_eat_count)
+	// printf("id: %d\n", p->id);	// Debug
+	// printf("left_fork (%p): %d\n", (void *)(p->left_fork), *p->left_fork);	// Debug
+	// printf("right_fork (%p): %d\n", (void *)(p->right_fork), *p->right_fork);	// Debug
+	// printf("must_eat_count: %d\n", t->must_eat_count);	// Debug
+	while (p->state != DEAD && t->philo_count == philo_count &&
+		p->eat_count < t->must_eat_count && ++i < t->must_eat_count)
 	{
 		p_think(p, t->start_time);
 		while (*p->left_fork != p->id|| *p->right_fork != p->id)
