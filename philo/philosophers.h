@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/03 15:09:57 by we               ###   ########.fr       */
+/*   Updated: 2024/06/03 15:15:17 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_philo	*init_philos(int *forks, int count);
 int		*init_forks(int count);
 void	clean_up(t_table *table);
 
-void	print_forks(char *forks, int count);
+void	print_forks(int *forks, int count);
 void	print_id(t_philo *philos, int count);
 
 void	log_activity(long start_time, int id, char *msg);

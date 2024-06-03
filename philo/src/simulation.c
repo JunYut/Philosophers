@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/03 15:06:18 by we               ###   ########.fr       */
+/*   Updated: 2024/06/03 15:25:53 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,20 @@ void	*philo_routine(void	*arg)
 {
 	t_table		*t;
 	t_philo		*p;
+	int			i;
 
 	t = (t_table *)arg;
 	p = t->philos;
-	while (p->state != DEAD || p->eat_count < t->must_eat_count)
+	i = -1;
+	printf("id: %d\n", p->id);	// Debug
+	printf("left_fork (%p): %d\n", (void *)(p->left_fork), *p->left_fork);	// Debug
+	printf("right_fork (%p): %d\n", (void *)(p->right_fork), *p->right_fork);	// Debug
+	printf("must_eat_count: %d\n", t->must_eat_count);	// Debug
+	while ((p->state != DEAD || p->eat_count < t->must_eat_count)
+		&& ++i < t->must_eat_count)
 	{
 		p_think(p, t->start_time);
-		while (*p->left_fork != p->id % 2 + 2 || *p->right_fork != p->id % 2 + 2)
+		while (*p->left_fork != p->id|| *p->right_fork != p->id)
 			p_take_fork(p, t->start_time);
 		print_forks(t->forks, t->philo_count);	// Debug
 		p_eat(p, t->time_to_eat, t->start_time);
