@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/03 15:15:17 by we               ###   ########.fr       */
+/*   Updated: 2024/06/04 08:45:11 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,14 @@ t_philo	*init_philos(int *forks, int count);
 int		*init_forks(int count);
 void	clean_up(t_table *table);
 
-void	print_forks(int *forks, int count);
-void	print_id(t_philo *philos, int count);
-
 void	log_activity(long start_time, int id, char *msg);
 long	get_time_ms(void);
 void	*ft_malloc(size_t size);
 long	ft_atoi(const char *str);
 int		ft_strlen(const char *str);
+
+void	print_forks(int *forks, int count);
+void	print_id(t_philo *philos, int count);
+void	debug(char *msg);
 
 #endif

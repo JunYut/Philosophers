@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:03:07 by we                #+#    #+#             */
-/*   Updated: 2024/06/03 15:17:46 by we               ###   ########.fr       */
+/*   Updated: 2024/06/04 08:46:35 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,14 @@ void	print_id(t_philo *philos, int count)
 	while (++i < count)
 		printf("id: %d\n", philos[i].id);
 	printf("\n");
+}
+
+void	debug(char *msg)
+{
+	static int	i;
+
+	if (msg)
+		printf("debug[%d]: %s\n", i++, msg);
+	else
+		printf("debug[%d]\n", i++);
 }
