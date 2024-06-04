@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/03 15:46:40 by we               ###   ########.fr       */
+/*   Updated: 2024/06/04 10:42:23 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,23 @@ void	start_simulation(t_table *table)
 	int			philo_count;
 	int			i;
 
+	printf("Starting simulation...\n");
 	print_forks(t->forks, t->philo_count);	// Debug
+	// printf("fork[%d]: %d\n", 5, t->forks[4]);	// Debug
 	philo_count = table->philo_count;
 	i = -1;
 	while (++i < table->philo_count)
 	{
 		pthread_create(&threads[i], NULL, philo_routine, t);
 		t->philos++;
-		pthread_join(threads[i], NULL);	// Debug
+		// pthread_join(threads[i], NULL);	// Debug
 	}
 	t->philos -= i;
 	i = -1;
 	while (++i < table->philo_count)
 		pthread_join(threads[i], NULL);
-	if (philo_count != table->philo_count)
-		printf("Simulation ended\n");
+	if (philo_count != table->philo_count || table->must_eat_count == 0)
+		printf("Ending simulation...\n");
 }
 
 void	*philo_routine(void	*arg)
@@ -47,6 +49,8 @@ void	*philo_routine(void	*arg)
 	p = t->philos;
 	philo_count = t->philo_count;
 	i = -1;
+	// printf("philo_count: %d\n", t->philo_count);	// Debug
+	// printf("state: %d\n", p->state);	// Debug
 	// printf("id: %d\n", p->id);	// Debug
 	// printf("left_fork (%p): %d\n", (void *)(p->left_fork), *p->left_fork);	// Debug
 	// printf("right_fork (%p): %d\n", (void *)(p->right_fork), *p->right_fork);	// Debug
