@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/03 15:35:29 by we               ###   ########.fr       */
+/*   Updated: 2024/06/04 09:51:50 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	p_eat(t_philo *philo, int time_to_eat, long start_time)
 {
 	log_activity(start_time, philo->id, "is eating");
 	philo->state = EATING;
-	usleep(time_to_eat);
+	usleep(time_to_eat * 1000);
 	philo->eat_count++;
 	*philo->left_fork = 0;
 	*philo->right_fork = 0;
@@ -44,7 +44,7 @@ void	p_sleep(t_philo *philo, int time_to_sleep, long start_time)
 {
 	log_activity(start_time, philo->id, "is sleeping");
 	philo->state = SLEEPING;
-	usleep(time_to_sleep);
+	usleep(time_to_sleep * 1000);
 }
 
 void	p_think(t_philo *philo, long start_time)
