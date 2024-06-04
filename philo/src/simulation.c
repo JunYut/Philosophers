@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/04 10:42:23 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/04 13:06:11 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	start_simulation(t_table *table)
 	int			i;
 
 	printf("Starting simulation...\n");
-	print_forks(t->forks, t->philo_count);	// Debug
+	print_forks(t->forks, t->philo_count, 'i');	// Debug
 	// printf("fork[%d]: %d\n", 5, t->forks[4]);	// Debug
 	philo_count = table->philo_count;
 	i = -1;
@@ -61,7 +61,7 @@ void	*philo_routine(void	*arg)
 		p_think(p, t->start_time);
 		while (*p->left_fork != p->id|| *p->right_fork != p->id)
 			p_take_fork(p, t->start_time);
-		print_forks(t->forks, t->philo_count);	// Debug
+		print_forks(t->forks, t->philo_count, 'i');	// Debug
 		p_eat(p, t->time_to_eat, t->start_time);
 		p_sleep(p, t->time_to_sleep, t->start_time);
 	}

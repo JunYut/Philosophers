@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/04 09:51:38 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/04 13:04:56 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	*ft_malloc(size_t size);
 long	ft_atoi(const char *str);
 int		ft_strlen(const char *str);
 
-void	print_forks(int *forks, int count);
+void	print_forks(int *forks, int count, char a_or_i);
 void	print_id(t_philo *philos, int count);
 void	debug(char *msg);
 
