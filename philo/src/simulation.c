@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/04 13:06:11 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/05 08:53:18 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,8 @@ void	start_simulation(t_table *table)
 	while (++i < table->philo_count)
 	{
 		pthread_create(&threads[i], NULL, philo_routine, t);
-		t->philos++;
 		// pthread_join(threads[i], NULL);	// Debug
 	}
-	t->philos -= i;
 	i = -1;
 	while (++i < table->philo_count)
 		pthread_join(threads[i], NULL);
@@ -43,12 +41,11 @@ void	*philo_routine(void	*arg)
 	t_table		*t;
 	t_philo		*p;
 	int			philo_count;
-	int			i;
+	static int	i;
 
 	t = (t_table *)arg;
-	p = t->philos;
+	p = t->philos + i++;
 	philo_count = t->philo_count;
-	i = -1;
 	// printf("philo_count: %d\n", t->philo_count);	// Debug
 	// printf("state: %d\n", p->state);	// Debug
 	// printf("id: %d\n", p->id);	// Debug
@@ -56,7 +53,7 @@ void	*philo_routine(void	*arg)
 	// printf("right_fork (%p): %d\n", (void *)(p->right_fork), *p->right_fork);	// Debug
 	// printf("must_eat_count: %d\n", t->must_eat_count);	// Debug
 	while (p->state != DEAD && t->philo_count == philo_count &&
-		p->eat_count < t->must_eat_count && ++i < t->must_eat_count)
+		p->eat_count < t->must_eat_count)
 	{
 		p_think(p, t->start_time);
 		while (*p->left_fork != p->id|| *p->right_fork != p->id)
