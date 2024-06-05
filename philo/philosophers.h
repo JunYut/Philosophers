@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/05 09:52:01 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/05 10:45:25 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_table
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				must_eat_count;
+	int				total_eat_count;
 	int				philo_count;
 }	t_table;
 
