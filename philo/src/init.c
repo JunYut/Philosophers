@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/04 11:20:07 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:03:32 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ t_philo	*init_philos(int *forks, int count)
 	int		i;
 
 	philos = (t_philo *)ft_malloc(sizeof(t_philo) * count);
-	i = -1;
-	while (++i < count)
+	i = 0;
+	while (++i <= count)
 	{
-		philos[i].id = i + 1;
+		philos[i].id = i;
 		philos[i].state = THINKING;
 		if (i == 0)
 			philos[i].right_fork = &forks[count - 1];
@@ -46,6 +46,9 @@ t_philo	*init_philos(int *forks, int count)
 			philos[i].right_fork = &forks[i - 1];
 		*philos[i].right_fork = 0;
 		philos[i].left_fork = &forks[i];
+		// printf("id: %d\n", philos[i].id);	// Debug
+		// printf("left_fork: %p\n", (void *)philos[i].left_fork);	// Debug
+		// printf("right_fork: %p\n\n", (void *)philos[i].right_fork);	// Debug
 		philos[i].eat_count = 0;
 	}
 	return (philos);

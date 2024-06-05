@@ -40,3 +40,10 @@ time_to_sleep	=	2
 time_to_die		= 	2\
 time_to_eat		= 	3\
 time_to_sleep	=	1
+
+## Fork addressess
+fork[1]: e0
+fork[2]: e4
+fork[3]: e8
+fork[4]: ec
+fork[5]: f0
