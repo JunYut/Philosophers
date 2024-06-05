@@ -10,6 +10,7 @@ INC_DIR = .
 # Files
 SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+HEADER = philosophers.h
 LIBPHILO = libphilo.a
 PHILO = philo
 
@@ -23,7 +24,7 @@ $(LIBPHILO): $(OBJ)
 	ar rcs $@ $^
 	ranlib $@
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
 
