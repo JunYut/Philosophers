@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/04 13:04:56 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:43:41 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_philo
 {
 	int			id;
 	char		state;
+	long		last_eat_time;
 	int			*left_fork;
 	int			*right_fork;
 	int			eat_count;

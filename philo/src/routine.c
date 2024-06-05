@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/04 11:28:07 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:43:50 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	p_eat(t_philo *philo, int time_to_eat, long start_time)
 	philo->eat_count++;
 	*philo->left_fork = 0;
 	*philo->right_fork = 0;
+	philo->last_eat_time = get_time_ms();
 }
 
 // '0' represents a fork that is not being used
