@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/05 09:54:35 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/05 10:07:49 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	p_eat(t_philo *philo, int time_to_eat, long start_time)
 {
+	if (philo->state == DEAD)
+		return ;
 	log_activity(start_time, philo->id, "is eating");
 	philo->state = EATING;
 	usleep(time_to_eat * 1000);
@@ -27,6 +29,8 @@ void	p_eat(t_philo *philo, int time_to_eat, long start_time)
 // 'id' represents a fork that is being used by a philosopher
 void	p_take_fork(t_philo *philo, long start_time)
 {
+	if (philo->state == DEAD)
+		return ;
 	if (*philo->left_fork == 0)
 	{
 		log_activity(start_time, philo->id, "has taken a fork");
@@ -41,6 +45,8 @@ void	p_take_fork(t_philo *philo, long start_time)
 
 void	p_sleep(t_philo *philo, int time_to_sleep, long start_time)
 {
+	if (philo->state == DEAD)
+		return ;
 	log_activity(start_time, philo->id, "is sleeping");
 	philo->state = SLEEPING;
 	usleep(time_to_sleep * 1000);
@@ -48,6 +54,8 @@ void	p_sleep(t_philo *philo, int time_to_sleep, long start_time)
 
 void	p_think(t_philo *philo, long start_time)
 {
+	if (philo->state == DEAD)
+		return ;
 	log_activity(start_time, philo->id, "is thinking");
 	philo->state = THINKING;
 }

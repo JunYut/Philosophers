@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/05 09:58:14 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/05 10:09:20 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,27 @@
 
 void	start_simulation(t_table *table)
 {
-	pthread_t	threads[table->philo_count];
+	pthread_t	philos[table->philo_count];
+	pthread_t	timers[table->philo_count];
 	t_table *t = table;
 	int			philo_count;
 	int			i;
 
 	printf("Starting simulation...\n");
-	print_forks(t->forks, t->philo_count, 'i');	// Debug
-	// printf("fork[%d]: %d\n", 5, t->forks[4]);	// Debug
 	philo_count = table->philo_count;
 	i = -1;
 	while (++i < table->philo_count)
 	{
-		pthread_create(&threads[i], NULL, philo_routine, t);
-		// pthread_join(threads[i], NULL);	// Debug
+		pthread_create(&philos[i], NULL, philo_routine, t);
+		pthread_create(&timers[i], NULL, timer, t);
+		// pthread_join(philos[i], NULL);	// Debug
 	}
 	i = -1;
 	while (++i < table->philo_count)
-		pthread_join(threads[i], NULL);
+	{
+		pthread_join(philos[i], NULL);
+		pthread_join(timers[i], NULL);
+	}
 	if (philo_count != table->philo_count || table->must_eat_count == 0)
 		printf("Ending simulation...\n");
 }
@@ -78,7 +81,10 @@ void	*timer(void *arg)
 	{
 		current_time = get_time_ms();
 		if (current_time - p->last_eat_time > t->time_to_die)
+		{
 			p_die(p, t->start_time);
+			t->philo_count--;
+		}
 	}
 	return (NULL);
 }
