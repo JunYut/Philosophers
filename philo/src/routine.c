@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/05 09:43:50 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:54:35 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@ void	p_take_fork(t_philo *philo, long start_time)
 	{
 		log_activity(start_time, philo->id, "has taken a fork");
 		*philo->left_fork = philo->id;
-		// printf("left_fork: %d\n", *philo->left_fork);	// Debug
 	}
 	if (*philo->right_fork == 0)
 	{
 		log_activity(start_time, philo->id, "has taken a fork");
 		*philo->right_fork = philo->id;
-		// printf("right_fork: %d\n", *philo->right_fork);	// Debug
 	}
 }
 
