@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/05 10:45:35 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/05 11:17:11 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ t_philo	*init_philos(int *forks, int count)
 	int		i;
 
 	philos = (t_philo *)ft_malloc(sizeof(t_philo) * count);
-	i = 0;
-	while (++i <= count)
+	i = -1;
+	while (++i < count)
 	{
-		philos[i].id = i;
+		philos[i].id = i + 1;
 		philos[i].state = THINKING;
 		philos[i].last_eat_time = get_time_ms();
 		if (i == 0)
