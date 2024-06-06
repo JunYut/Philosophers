@@ -6,76 +6,78 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 11:21:42 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 18:33:14 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	p_eat(t_philo *philo, int time_to_eat, long start_time)
+void	p_eat(t_philo *p, int time_to_eat, long start, pthread_mutex_t *m)
 {
-	if (philo->state == DEAD)
+	(void)m;
+	// pthread_mutex_lock(m);
+	if (p->state == DEAD)
 		return ;
-	// printf("address: %p\n", (void *)philo);	// Debug
-	log_activity(start_time, philo->id, "\033[0;32mis eating\033[0m");
+	log_activity(start, p->id, "\033[0;32mis eating\033[0m");
 	printf("\n");
-	philo->state = EATING;
+	p->state = EATING;
 	usleep(time_to_eat * 1000);
-	philo->eat_count++;
-	*philo->left_fork = 0;
-	*philo->right_fork = 0;
-	philo->last_eat_time = get_time_ms();
+	p->eat_count++;
+	*p->left_fork = 0;
+	*p->right_fork = 0;
+	p->last_eat_time = get_time_ms();
+	// pthread_mutex_unlock(m);
 }
 
 // '0' represents a fork that is not being used
 // 'id' represents a fork that is being used by a philosopher
-void	p_take_fork(t_philo *philo, long start_time)
+void	p_take_fork(t_philo *p, long start, pthread_mutex_t *m)
 {
-	if (philo->state == DEAD)
+	pthread_mutex_lock(m);
+	if (p->state == DEAD)
 		return ;
-	if (*philo->left_fork == 0)
+	if (*p->left_fork == 0 && *p->right_fork == 0)
 	{
-		// printf("address: %p\n", (void *)philo);	// Debug
-		log_activity(start_time, philo->id,
+		log_activity(start, p->id,
+		"\033[0;33mhas taken a fork\033[0m");
+		log_activity(start, p->id,
 		"\033[0;33mhas taken a fork\033[0m");
 		printf("\n");
-		*philo->left_fork = philo->id;
+		*p->left_fork = p->id;
+		*p->right_fork = p->id;
 	}
-	if (*philo->right_fork == 0)
-	{
-		// printf("address: %p\n", (void *)philo);	// Debug
-		log_activity(start_time, philo->id,
-		"\033[0;33mhas taken a fork\033[0m");
-		printf("\n");
-		*philo->right_fork = philo->id;
-	}
+	pthread_mutex_unlock(m);
 }
 
-void	p_sleep(t_philo *philo, int time_to_sleep, long start_time)
+void	p_sleep(t_philo *p, int time_to_sleep, long start, pthread_mutex_t *m)
 {
-	if (philo->state == DEAD)
+	if (p->state == DEAD)
 		return ;
-	// printf("address: %p\n", (void *)philo);	// Debug
-	log_activity(start_time, philo->id, "\033[0;34mis sleeping\033[0m");
+	// pthread_mutex_lock(m);
+	log_activity(start, p->id, "\033[0;34mis sleeping\033[0m");
 	printf("\n");
-	philo->state = SLEEPING;
+	p->state = SLEEPING;
 	usleep(time_to_sleep * 1000);
+	// pthread_mutex_unlock(m);
+	(void)m;
 }
 
-void	p_think(t_philo *philo, long start_time)
+void	p_think(t_philo *p, long start, pthread_mutex_t *m)
 {
-	if (philo->state == DEAD)
+	if (p->state == DEAD)
 		return ;
-	// printf("address: %p\n", (void *)philo);	// Debug
-	log_activity(start_time, philo->id, "is thinking");
+	// pthread_mutex_lock(m);
+	log_activity(start, p->id, "is thinking");
 	printf("\n");
-	philo->state = THINKING;
+	p->state = THINKING;
+	// pthread_mutex_unlock(m);
+	(void)m;
 }
 
-void	p_die(t_philo *philo, long start_time)
+void	p_die(t_philo *p, long start, pthread_mutex_t *m)
 {
-	// printf("address: %p\n", (void *)philo);	// Debug
-	log_activity(start_time, philo->id, "\033[0;31mdied\033[0m");
+	(void)m;
+	log_activity(start, p->id, "\033[0;31mdied\033[0m");
 	printf("\n");
-	philo->state = DEAD;
+	p->state = DEAD;
 }

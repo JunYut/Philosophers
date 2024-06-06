@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/06 11:04:46 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 17:10:14 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	pthread_mutex_t	monitor;
+	pthread_mutex_t	mutex;
 	t_philo			*philos;
 	int				*forks;
 	long			start_time;
@@ -60,11 +60,12 @@ typedef struct s_table
 void	start_simulation(t_table *table);
 void	*philo_routine(void *arg);
 void	*timer(void *arg);
-void	p_eat(t_philo *philo, int time_to_eat, long start_time);
-void	p_take_fork(t_philo *philo, long start_time);
-void	p_sleep(t_philo *philo, int time_to_sleep, long start_time);
-void	p_think(t_philo *philo, long start_time);
-void	p_die(t_philo *philo, long start_time);
+
+void	p_eat(t_philo *p, int time_to_eat, long start, pthread_mutex_t *m);
+void	p_take_fork(t_philo *p, long start, pthread_mutex_t *m);
+void	p_sleep(t_philo *p, int time_to_sleep, long start, pthread_mutex_t *m);
+void	p_think(t_philo *p, long start, pthread_mutex_t *m);
+void	p_die(t_philo *p, long start, pthread_mutex_t *m);
 
 void	init_env(t_table *table, char *argv[]);
 t_philo	*init_philos(int *forks, int count);
