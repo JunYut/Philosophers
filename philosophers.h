@@ -10,6 +10,10 @@ typedef struct vars
 {
 	pthread_mutex_t	mutex;
 	int				content;
+	int				content2;
+	int				content3;
+	int				content4;
+	int				content5;
 }				vars;
 
 long	get_time_ms(void);

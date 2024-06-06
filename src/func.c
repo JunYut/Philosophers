@@ -19,7 +19,8 @@ void *func2(void *arg)
 
 	// pthread_mutex_lock(&v->mutex);
 	printf("Start func2\n");
-	v->content = 2;
+	// v->content = 2;
+	v->content2 = 2;
 	printf("End func2\n\n");
 	// pthread_mutex_unlock(&v->mutex);
 
@@ -32,7 +33,8 @@ void *func3(void *arg)
 
 	// pthread_mutex_lock(&v->mutex);
 	printf("Start func3\n");
-	v->content = 3;
+	// v->content = 2;
+	v->content3 = 3;
 	printf("End func3\n\n");
 	// pthread_mutex_unlock(&v->mutex);
 
@@ -45,7 +47,8 @@ void *func4(void *arg)
 
 	// pthread_mutex_lock(&v->mutex);
 	printf("Start func4\n");
-	v->content = 4;
+	// v->content = 2;
+	v->content4 = 4;
 	printf("End func4\n\n");
 	// pthread_mutex_unlock(&v->mutex);
 
@@ -58,7 +61,8 @@ void *func5(void *arg)
 
 	// pthread_mutex_lock(&v->mutex);
 	printf("Start func5\n");
-	v->content = 5;
+	// v->content = 2;
+	v->content5 = 5;
 	printf("End func5\n\n");
 	// pthread_mutex_unlock(&v->mutex);
 
