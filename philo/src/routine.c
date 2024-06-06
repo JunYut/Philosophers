@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 11:21:42 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 21:31:37 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,15 @@ void	p_take_fork(t_philo *philo, long start_time)
 {
 	if (philo->state == DEAD)
 		return ;
-	if (*philo->left_fork == 0)
+	if (*philo->left_fork == 0 && *philo->right_fork == 0)
 	{
-		// printf("address: %p\n", (void *)philo);	// Debug
 		log_activity(start_time, philo->id,
 		"\033[0;33mhas taken a fork\033[0m");
+		log_activity(start_time, philo->id,
+		"\033[0;33mhas taken a fork\033[0m");
+		printf("\n");
 		printf("\n");
 		*philo->left_fork = philo->id;
-	}
-	if (*philo->right_fork == 0)
-	{
-		// printf("address: %p\n", (void *)philo);	// Debug
-		log_activity(start_time, philo->id,
-		"\033[0;33mhas taken a fork\033[0m");
-		printf("\n");
 		*philo->right_fork = philo->id;
 	}
 }
