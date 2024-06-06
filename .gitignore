@@ -1,4 +1,6 @@
+.vscode
 obj/
 *.o
 *.a
 main
+philo/philo
