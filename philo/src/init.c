@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/05 11:17:11 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/06 11:29:08 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	*init_forks(int count)
 	int	*forks;
 	int	i;
 
-	forks = (int *)ft_malloc(count);
+	forks = (int *)ft_malloc(sizeof(int) * count);
 	i = -1;
 	while (++i < count)
 		forks[i] = 0;
