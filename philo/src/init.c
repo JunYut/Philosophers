@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 23:29:09 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 23:33:30 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	init_env(t_table *t, char *argv[])
 	else
 		t->must_eat_count = 5;
 	t->total_eat_count = 0;
-	pthread_mutex_init(&t->state_mutex, NULL);
 }
 
 t_philo	*init_philos(int *forks, int count, long starve_time)
@@ -73,7 +72,6 @@ void	clean_up(t_table *table)
 
 	free(table->philos);
 	free(table->forks);
-	pthread_mutex_destroy(&table->state_mutex);
 	i = -1;
 	while (++i < table->philo_count)
 		pthread_mutex_destroy(&table->philos[i].state_mutex);

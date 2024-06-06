@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 23:30:53 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 23:39:04 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	*timer(void *arg)
 		if (p->state != DEAD && p->current_time > p->starve_time)
 		{
 			// pthread_mutex_lock(&t->state_mutex);
-			printf("timer[%d]\n", p->id);	// Debug
 			p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
 			// pthread_mutex_unlock(&t->state_mutex);
 		}

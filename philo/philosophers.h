@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/06 23:28:33 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 23:33:32 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	pthread_mutex_t	state_mutex;
 	t_philo			*philos;
 	int				*forks;
 	long			start_time;
