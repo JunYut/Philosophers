@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 21:39:07 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 21:44:30 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	start_simulation(t_table *table)
 	int			initial_count;
 	int			i;
 
-	printf("Starting simulation...\n");
+	printf("Starting simulation...\n\n");
 	initial_count = table->philo_count;
 	i = -1;
 	// printf("total_eat_count: %d\n", table->philo_count * table->must_eat_count);	// Debug

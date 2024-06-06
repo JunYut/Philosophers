@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 12:42:52 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 21:43:38 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_env(t_table *table, char *argv[])
 {
-	printf("Initializing environment...\n");
+	printf("Initializing environment...\n\n");
 	table->philo_count = ft_atoi(argv[1]);
 	table->forks = init_forks(table->philo_count);
 	table->philos = init_philos(table->forks, table->philo_count);
