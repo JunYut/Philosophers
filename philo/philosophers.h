@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/06 17:10:14 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 19:51:04 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ typedef struct s_philo
 {
 	int			id;
 	char		state;
+	long		current_time;
 	long		last_eat_time;
+	long		time_to_die;
 	int			*left_fork;
 	int			*right_fork;
 	int			eat_count;
@@ -61,14 +63,14 @@ void	start_simulation(t_table *table);
 void	*philo_routine(void *arg);
 void	*timer(void *arg);
 
-void	p_eat(t_philo *p, int time_to_eat, long start, pthread_mutex_t *m);
+void	p_eat(t_philo *p, t_table *t, pthread_mutex_t *m);
 void	p_take_fork(t_philo *p, long start, pthread_mutex_t *m);
-void	p_sleep(t_philo *p, int time_to_sleep, long start, pthread_mutex_t *m);
+void	p_sleep(t_philo *p, t_table *t, pthread_mutex_t *m);
 void	p_think(t_philo *p, long start, pthread_mutex_t *m);
-void	p_die(t_philo *p, long start, pthread_mutex_t *m);
+void	p_die(t_philo *p, long start, int *p_count, pthread_mutex_t *m);
 
 void	init_env(t_table *table, char *argv[]);
-t_philo	*init_philos(int *forks, int count);
+t_philo	*init_philos(int *forks, int count, long time_to_die);
 int		*init_forks(int count);
 void	clean_up(t_table *table);
 

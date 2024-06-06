@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 17:19:45 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 19:52:03 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	init_env(t_table *table, char *argv[])
 {
 	printf("Initializing environment...\n\n");
 	table->philo_count = ft_atoi(argv[1]);
-	table->forks = init_forks(table->philo_count);
-	table->philos = init_philos(table->forks, table->philo_count);
 	table->start_time = get_time_ms();
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
+	table->forks = init_forks(table->philo_count);
+	table->philos = init_philos(table->forks, table->time_to_die, table->philo_count);
 	if (argv[5])
 		table->must_eat_count = ft_atoi(argv[5]);
 	else
@@ -30,7 +30,7 @@ void	init_env(t_table *table, char *argv[])
 	pthread_mutex_init(&table->mutex, NULL);
 }
 
-t_philo	*init_philos(int *forks, int count)
+t_philo	*init_philos(int *forks, int count, long time_to_die)
 {
 	t_philo	*philos;
 	int		i;
@@ -42,6 +42,7 @@ t_philo	*init_philos(int *forks, int count)
 		philos[i].id = i + 1;
 		philos[i].state = THINKING;
 		philos[i].last_eat_time = get_time_ms();
+		philos[i].time_to_die = time_to_die;
 		if (i == 0)
 			philos[i].right_fork = &forks[count - 1];
 		else
