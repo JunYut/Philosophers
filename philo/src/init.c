@@ -6,31 +6,31 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 21:43:38 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 23:29:09 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	init_env(t_table *table, char *argv[])
+void	init_env(t_table *t, char *argv[])
 {
 	printf("Initializing environment...\n\n");
-	table->philo_count = ft_atoi(argv[1]);
-	table->forks = init_forks(table->philo_count);
-	table->philos = init_philos(table->forks, table->philo_count);
-	table->start_time = get_time_ms();
-	table->time_to_die = ft_atoi(argv[2]);
-	table->time_to_eat = ft_atoi(argv[3]);
-	table->time_to_sleep = ft_atoi(argv[4]);
+	t->philo_count = ft_atoi(argv[1]);
+	t->forks = init_forks(t->philo_count);
+	t->philos = init_philos(t->forks, t->philo_count, ft_atoi(argv[2]));
+	t->start_time = get_time_ms();
+	t->time_to_die = ft_atoi(argv[2]);
+	t->time_to_eat = ft_atoi(argv[3]);
+	t->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
-		table->must_eat_count = ft_atoi(argv[5]);
+		t->must_eat_count = ft_atoi(argv[5]);
 	else
-		table->must_eat_count = 5;
-	table->total_eat_count = 0;
-	pthread_mutex_init(&table->monitor, NULL);
+		t->must_eat_count = 5;
+	t->total_eat_count = 0;
+	pthread_mutex_init(&t->state_mutex, NULL);
 }
 
-t_philo	*init_philos(int *forks, int count)
+t_philo	*init_philos(int *forks, int count, long starve_time)
 {
 	t_philo	*philos;
 	int		i;
@@ -41,13 +41,15 @@ t_philo	*init_philos(int *forks, int count)
 	{
 		philos[i].id = i + 1;
 		philos[i].state = THINKING;
-		philos[i].last_eat_time = get_time_ms();
 		if (i == 0)
 			philos[i].right_fork = &forks[count - 1];
 		else
 			philos[i].right_fork = &forks[i - 1];
 		philos[i].left_fork = &forks[i];
+		philos[i].last_eat_time = get_time_ms();
+		philos[i].starve_time = starve_time;
 		philos[i].eat_count = 0;
+		pthread_mutex_init(&philos[i].state_mutex, NULL);
 	}
 	return (philos);
 }
@@ -67,6 +69,12 @@ int	*init_forks(int count)
 
 void	clean_up(t_table *table)
 {
+	int	i;
+
 	free(table->philos);
 	free(table->forks);
+	pthread_mutex_destroy(&table->state_mutex);
+	i = -1;
+	while (++i < table->philo_count)
+		pthread_mutex_destroy(&table->philos[i].state_mutex);
 }

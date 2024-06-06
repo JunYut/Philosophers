@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 21:44:30 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 23:30:53 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,9 @@ void	*philo_routine(void	*arg)
 			&& p->state != DEAD)
 			p_take_fork(p, t->start_time);
 		// print_forks(t->forks, t->philo_count, 'i');	// Debug
-		p_eat(p, t->time_to_eat, t->start_time);
-		t->total_eat_count++;
+		p_eat(p, t);
 		// printf("time_to_die[%d]: %ld\n", p->id, p->last_eat_time + t->time_to_die - t->start_time);	// Debug
-		p_sleep(p, t->time_to_sleep, t->start_time);
+		p_sleep(p, t);
 	}
 	// printf("total_eat_count: %d\n", t->total_eat_count);	// Debug
 	return (NULL);
@@ -81,12 +80,12 @@ void	*timer(void *arg)
 		p->starve_time = p->last_eat_time + t->time_to_die - t->start_time;
 		// printf("current_time[%d]: %ld\n", p->id, p->current_time);	// Debug
 		// printf("starve_time[%d]: %ld\n", p->id, p->starve_time);	// Debug
-		if (p->current_time > p->starve_time)
+		if (p->state != DEAD && p->current_time > p->starve_time)
 		{
-			pthread_mutex_lock(&t->monitor);
-			p_die(p, t->start_time);
-			t->philo_count--;
-			pthread_mutex_unlock(&t->monitor);
+			// pthread_mutex_lock(&t->state_mutex);
+			printf("timer[%d]\n", p->id);	// Debug
+			p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
+			// pthread_mutex_unlock(&t->state_mutex);
 		}
 	}
 	return (NULL);

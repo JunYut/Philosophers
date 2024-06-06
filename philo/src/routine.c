@@ -6,83 +6,92 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 21:51:36 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 23:30:30 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	p_eat(t_philo *philo, int time_to_eat, long start_time)
+void	p_eat(t_philo *p, t_table *t)
 {
-	if (philo->state == DEAD)
+	if (p->state == DEAD)
 		return ;
-	// printf("address: %p\n", (void *)philo);	// Debug
-	log_activity(start_time, philo->id, "\033[0;32mis eating\033[0m");
+	log_activity(t->start_time, p->id, "\033[0;32mis eating\033[0m");
 	printf("\n");
-	philo->state = EATING;
-	if (philo->current_time + time_to_eat > philo->starve_time)
+	p->state = EATING;
+	if (p->current_time + t->time_to_eat > p->starve_time)
 	{
-		usleep((philo->starve_time - philo->current_time) * 1000);
-		p_die(philo, start_time);
+		// pthread_mutex_lock(&t->state_mutex);
+		// printf("starve_time: %ld\n", p->starve_time);	// Debug
+		usleep((p->starve_time - p->current_time) * 1000);
+		printf("p_eat[%d]\n", p->id);	// Debug
+		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
+		// pthread_mutex_unlock(&t->state_mutex);
 		return ;
 	}
-	usleep(time_to_eat * 1000);
-	philo->eat_count++;
-	*philo->left_fork = 0;
-	*philo->right_fork = 0;
-	philo->last_eat_time = get_time_ms();
+	usleep(t->time_to_eat * 1000);
+	p->eat_count++;
+	t->total_eat_count++;
+	*p->left_fork = 0;
+	*p->right_fork = 0;
+	p->last_eat_time = get_time_ms();
 }
 
 // '0' represents a fork that is not being used
 // 'id' represents a fork that is being used by a philosopher
-void	p_take_fork(t_philo *philo, long start_time)
+void	p_take_fork(t_philo *p, long start)
 {
-	if (philo->state == DEAD)
+	if (p->state == DEAD)
 		return ;
-	if (*philo->left_fork == 0 && *philo->right_fork == 0)
+	if (*p->left_fork == 0 && *p->right_fork == 0)
 	{
-		log_activity(start_time, philo->id,
+		log_activity(start, p->id,
 		"\033[0;33mhas taken a fork\033[0m");
 		printf("\n");
-		log_activity(start_time, philo->id,
+		*p->left_fork = p->id;
+		if (p->state == DEAD)
+			return ;
+		log_activity(start, p->id,
 		"\033[0;33mhas taken a fork\033[0m");
 		printf("\n");
-		*philo->left_fork = philo->id;
-		*philo->right_fork = philo->id;
+		*p->right_fork = p->id;
 	}
 }
 
-void	p_sleep(t_philo *philo, int time_to_sleep, long start_time)
+void	p_sleep(t_philo *p, t_table *t)
 {
-	if (philo->state == DEAD)
+	if (p->state == DEAD)
 		return ;
-	// printf("address: %p\n", (void *)philo);	// Debug
-	log_activity(start_time, philo->id, "\033[0;34mis sleeping\033[0m");
+	log_activity(t->start_time, p->id, "\033[0;34mis sleeping\033[0m");
 	printf("\n");
-	philo->state = SLEEPING;
-	if (philo->current_time + time_to_sleep > philo->starve_time)
+	p->state = SLEEPING;
+	if (p->current_time + t->time_to_sleep > p->starve_time)
 	{
-		usleep((philo->starve_time - philo->current_time) * 1000);
-		p_die(philo, start_time);
+		usleep((p->starve_time - p->current_time) * 1000);
+		printf("p_sleep[%d]\n", p->id);	// Debug
+		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
 		return ;
 	}
-	usleep(time_to_sleep * 1000);
+	usleep(t->time_to_sleep * 1000);
 }
 
-void	p_think(t_philo *philo, long start_time)
+void	p_think(t_philo *p, long start)
 {
-	if (philo->state == DEAD)
+	if (p->state == DEAD)
 		return ;
-	// printf("address: %p\n", (void *)philo);	// Debug
-	log_activity(start_time, philo->id, "is thinking");
+	log_activity(start, p->id, "is thinking");
 	printf("\n");
-	philo->state = THINKING;
+	p->state = THINKING;
 }
 
-void	p_die(t_philo *philo, long start_time)
+void	p_die(t_philo *p, long start, int *p_count, pthread_mutex_t *m)
 {
-	// printf("address: %p\n", (void *)philo);	// Debug
-	log_activity(start_time, philo->id, "\033[0;31mdied\033[0m");
+	pthread_mutex_lock(m);
+	if (p->state == DEAD)
+		return ;
+	log_activity(start, p->id, "\033[0;31mdied\033[0m");
 	printf("\n");
-	philo->state = DEAD;
+	p->state = DEAD;
+	*p_count -= 1;
+	pthread_mutex_unlock(m);
 }
