@@ -6,7 +6,6 @@ int main(void)
 	void		*(*func[5])(void *) = {func1, func2, func3, func4, func5};
 	vars		arg;
 
-	get_time_ms();
 	pthread_mutex_init(&arg.mutex, NULL);
 	for (int i = 0; i < 5; i++)
 	{

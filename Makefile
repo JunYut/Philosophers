@@ -17,7 +17,7 @@ MAIN = main
 all: $(MAIN)
 
 $(MAIN): main.c $(LIBPHILO)
-	$(CC) $(CFLAGS) -o $@ main.c -L. -lphilo
+	$(CC) $(CFLAGS) -o $@ main.c -L. -lphilo -lpthread
 
 $(LIBPHILO): $(OBJ)
 	ar rcs $(LIBPHILO) $(OBJ)
