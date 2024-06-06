@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/06 11:04:46 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 21:34:19 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ typedef struct s_philo
 {
 	int			id;
 	char		state;
-	long		last_eat_time;
 	int			*left_fork;
 	int			*right_fork;
+	long		current_time;
+	long		last_eat_time;
+	long		starve_time;
 	int			eat_count;
 }	t_philo;
 
