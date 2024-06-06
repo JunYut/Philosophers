@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 21:42:28 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 21:51:36 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	p_eat(t_philo *philo, int time_to_eat, long start_time)
 	log_activity(start_time, philo->id, "\033[0;32mis eating\033[0m");
 	printf("\n");
 	philo->state = EATING;
+	if (philo->current_time + time_to_eat > philo->starve_time)
+	{
+		usleep((philo->starve_time - philo->current_time) * 1000);
+		p_die(philo, start_time);
+		return ;
+	}
 	usleep(time_to_eat * 1000);
 	philo->eat_count++;
 	*philo->left_fork = 0;
@@ -54,6 +60,12 @@ void	p_sleep(t_philo *philo, int time_to_sleep, long start_time)
 	log_activity(start_time, philo->id, "\033[0;34mis sleeping\033[0m");
 	printf("\n");
 	philo->state = SLEEPING;
+	if (philo->current_time + time_to_sleep > philo->starve_time)
+	{
+		usleep((philo->starve_time - philo->current_time) * 1000);
+		p_die(philo, start_time);
+		return ;
+	}
 	usleep(time_to_sleep * 1000);
 }
 
