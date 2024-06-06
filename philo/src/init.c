@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 11:29:08 by we               ###   ########.fr       */
+/*   Updated: 2024/06/06 12:42:52 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ t_philo	*init_philos(int *forks, int count)
 		else
 			philos[i].right_fork = &forks[i - 1];
 		philos[i].left_fork = &forks[i];
-		// printf("id: %d\n", philos[i].id);	// Debug
-		// printf("left_fork: %p\n", (void *)philos[i].left_fork);	// Debug
-		// printf("right_fork: %p\n\n", (void *)philos[i].right_fork);	// Debug
 		philos[i].eat_count = 0;
 	}
 	return (philos);
