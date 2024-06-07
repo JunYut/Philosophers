@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 15:23:18 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 16:06:31 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	p_eat(t_philo *p, t_table *t)
 	usleep(t->time_to_eat * 1000);
 	p->eat_count++;
 	t->total_eat_count++;
-	*p->left_fork = 0;
-	*p->right_fork = 0;
 	p->last_eat_time = get_time_ms();
 	pthread_mutex_unlock(&p->state_mutex);
 }
@@ -85,6 +83,8 @@ void	p_sleep(t_philo *p, t_table *t)
 		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
 		return ;
 	}
+	*p->left_fork = 0;
+	*p->right_fork = 0;
 	usleep(t->time_to_sleep * 1000);
 	pthread_mutex_unlock(&p->state_mutex);
 }
