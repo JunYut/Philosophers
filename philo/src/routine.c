@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 11:44:02 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 11:51:53 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void	p_eat(t_philo *p, t_table *t)
 	p->state = EATING;
 	if (p->current_time + t->time_to_eat > p->starve_time)
 	{
+		pthread_mutex_unlock(&p->state_mutex);
 		if (p->starve_time - p->current_time <= 0)
 			p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
 		else
 			usleep((p->starve_time - p->current_time) * 1000);
 		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
-		pthread_mutex_unlock(&p->state_mutex);
 		return ;
 	}
 	usleep(t->time_to_eat * 1000);
@@ -81,12 +81,12 @@ void	p_sleep(t_philo *p, t_table *t)
 	p->state = SLEEPING;
 	if (p->current_time + t->time_to_sleep > p->starve_time)
 	{
+		pthread_mutex_unlock(&p->state_mutex);
 		if (p->starve_time - p->current_time <= 0)
 			p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
 		else
 			usleep((p->starve_time - p->current_time) * 1000);
 		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
-		pthread_mutex_unlock(&p->state_mutex);
 		return ;
 	}
 	usleep(t->time_to_sleep * 1000);

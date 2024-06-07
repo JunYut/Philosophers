@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 11:36:56 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 11:51:32 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	*philo_routine(void	*arg)
 		// printf("time_to_die[%d]: %ld\n", p->id, p->last_eat_time + t->time_to_die - t->start_time);	// Debug
 		p_sleep(p, t);
 	}
-	printf("total_eat_count[%d]: %d\n", p->id, t->total_eat_count);	// Debug
+	// printf("total_eat_count[%d]: %d\n", p->id, t->total_eat_count);	// Debug
 	return (NULL);
 }
 
