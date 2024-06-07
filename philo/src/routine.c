@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 11:17:22 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 11:44:02 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 void	p_eat(t_philo *p, t_table *t)
 {
 	pthread_mutex_lock(&p->state_mutex);
+	// printf("before_eat[%d]: %d\n", p->id, p->state);	// Debug
 	if (p->state == DEAD)
+	{
+		pthread_mutex_unlock(&p->state_mutex);
 		return ;
+	}
 	log_activity(t->start_time, p->id, "\033[0;32mis eating\033[0m");
 	printf("\n");
 	p->state = EATING;
@@ -26,9 +30,8 @@ void	p_eat(t_philo *p, t_table *t)
 			p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
 		else
 			usleep((p->starve_time - p->current_time) * 1000);
-		// printf("p_eat[%d]\n", p->id);	// Debug
-		// printf("p_eat_timer[%d]: %ld\n", p->id, p->starve_time - p->current_time);	// Debug
 		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
+		pthread_mutex_unlock(&p->state_mutex);
 		return ;
 	}
 	usleep(t->time_to_eat * 1000);
@@ -46,7 +49,10 @@ void	p_take_fork(t_philo *p, long start)
 {
 	pthread_mutex_lock(&p->state_mutex);
 	if (p->state == DEAD)
+	{
+		pthread_mutex_unlock(&p->state_mutex);
 		return ;
+	}
 	if (*p->left_fork == 0 && *p->right_fork == 0)
 	{
 		log_activity(start, p->id,
@@ -64,8 +70,12 @@ void	p_take_fork(t_philo *p, long start)
 void	p_sleep(t_philo *p, t_table *t)
 {
 	pthread_mutex_lock(&p->state_mutex);
+	// printf("before_sleep[%d]: %d\n", p->id, p->state);	// Debug
 	if (p->state == DEAD)
+	{
+		pthread_mutex_unlock(&p->state_mutex);
 		return ;
+	}
 	log_activity(t->start_time, p->id, "\033[0;34mis sleeping\033[0m");
 	printf("\n");
 	p->state = SLEEPING;
@@ -75,9 +85,8 @@ void	p_sleep(t_philo *p, t_table *t)
 			p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
 		else
 			usleep((p->starve_time - p->current_time) * 1000);
-		// printf("p_sleep[%d]\n", p->id);	// Debug
-		// printf("p_sleep_timer[%d]: %ld\n", p->id, p->starve_time - p->current_time);	// Debug
 		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
+		pthread_mutex_unlock(&p->state_mutex);
 		return ;
 	}
 	usleep(t->time_to_sleep * 1000);
@@ -87,8 +96,12 @@ void	p_sleep(t_philo *p, t_table *t)
 void	p_think(t_philo *p, long start)
 {
 	pthread_mutex_lock(&p->state_mutex);
+	// printf("before_think[%d]: %d\n", p->id, p->state);	// Debug
 	if (p->state == DEAD)
+	{
+		pthread_mutex_unlock(&p->state_mutex);
 		return ;
+	}
 	log_activity(start, p->id, "is thinking");
 	printf("\n");
 	p->state = THINKING;
@@ -98,8 +111,12 @@ void	p_think(t_philo *p, long start)
 void	p_die(t_philo *p, long start, int *p_count, pthread_mutex_t *m)
 {
 	pthread_mutex_lock(m);
+	// printf("before_die[%d]: %d\n", p->id, p->state);	// Debug
 	if (p->state == DEAD)
+	{
+		pthread_mutex_unlock(&p->state_mutex);
 		return ;
+	}
 	log_activity(start, p->id, "\033[0;31mdied\033[0m");
 	printf("\n");
 	p->state = DEAD;
