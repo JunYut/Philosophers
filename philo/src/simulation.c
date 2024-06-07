@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 15:21:08 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 16:22:05 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ void	start_simulation(t_table *table)
 
 	printf("Starting simulation...\n\n");
 	i = -1;
-	// printf("total_eat_count: %d\n", table->philo_count * table->must_eat_count);	// Debug
 	while (++i < table->init_count)
 	{
 		pthread_create(&philos[i], NULL, philo_routine, table);
 		pthread_create(&timers[i], NULL, timer, table);
-		// pthread_join(philos[i], NULL);	// Debug
 	}
 	i = -1;
 	while (++i < table->init_count)
@@ -33,6 +31,7 @@ void	start_simulation(t_table *table)
 		pthread_join(philos[i], NULL);
 		pthread_join(timers[i], NULL);
 	}
+	printf("total_eat_count: %d\n\n", table->total_eat_count);	// Debug
 	printf("Ending simulation...\n");
 }
 
@@ -53,12 +52,11 @@ void	*philo_routine(void	*arg)
 		{
 			p_take_fork(p, t->start_time);
 		}
-		// print_forks(t->forks, t->philo_count, 'i');	// Debug
+		print_forks(t->forks, t->philo_count, 'i');	// Debug
 		p_eat(p, t);
-		// printf("time_to_die[%d]: %ld\n", p->id, p->last_eat_time + t->time_to_die - t->start_time);	// Debug
 		p_sleep(p, t);
 	}
-	// printf("total_eat_count[%d]: %d\n", p->id, t->total_eat_count);	// Debug
+	printf("eat_count[%d]: %d\n\n", p->id, p->eat_count);	// Debug
 	return (NULL);
 }
 
@@ -74,16 +72,13 @@ void	*timer(void *arg)
 		&& t->total_eat_count != t->philo_count * t->must_eat_count)
 	{
 		p->current_time = get_time_ms() - t->start_time;
-		p->starve_time = p->last_eat_time + t->time_to_die - t->start_time;
+		p->starve_time = p->last_eat_time + t->time_to_die;
 		// printf("current_time[%d]: %ld\n", p->id, p->current_time);	// Debug
 		// printf("starve_time[%d]: %ld\n", p->id, p->starve_time);	// Debug
 		if (p->state != DEAD && p->current_time > p->starve_time)
 		{
-			// pthread_mutex_lock(&t->state_mutex);
 			p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
-			// pthread_mutex_unlock(&t->state_mutex);
 		}
-		// debug(NULL);	// Debug
 	}
 	return (NULL);
 }

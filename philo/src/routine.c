@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 16:06:31 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 16:21:56 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void	p_eat(t_philo *p, t_table *t)
 {
 	pthread_mutex_lock(&p->state_mutex);
 	// printf("before_eat[%d]: %d\n", p->id, p->state);	// Debug
+	printf("current_time[%d]: %ld\n", p->id, p->current_time);	// Debug
+	printf("starve_time[%d]: %ld\n", p->id, p->starve_time);	// Debug
+	printf("last_eat_time[%d]: %ld\n", p->id, p->last_eat_time);	// Debug
 	if (p->state == DEAD)
 	{
 		pthread_mutex_unlock(&p->state_mutex);
@@ -36,7 +39,7 @@ void	p_eat(t_philo *p, t_table *t)
 	usleep(t->time_to_eat * 1000);
 	p->eat_count++;
 	t->total_eat_count++;
-	p->last_eat_time = get_time_ms();
+	p->last_eat_time = get_time_ms() - t->start_time;
 	pthread_mutex_unlock(&p->state_mutex);
 }
 
@@ -66,6 +69,9 @@ void	p_sleep(t_philo *p, t_table *t)
 {
 	pthread_mutex_lock(&p->state_mutex);
 	// printf("before_sleep[%d]: %d\n", p->id, p->state);	// Debug
+	printf("current_time[%d]: %ld\n", p->id, p->current_time);	// Debug
+	printf("starve_time[%d]: %ld\n", p->id, p->starve_time);	// Debug
+	printf("last_eat_time[%d]: %ld\n", p->id, p->last_eat_time);	// Debug
 	if (p->state == DEAD)
 	{
 		pthread_mutex_unlock(&p->state_mutex);
