@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/07 15:11:26 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 15:15:20 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,28 @@ enum e_state
 typedef struct s_philo
 {
 	pthread_mutex_t	state_mutex;
-	int			id;
-	char		state;
-	int			*left_fork;
-	int			*right_fork;
-	long		current_time;
-	long		last_eat_time;
-	long		starve_time;
-	int			eat_count;
+	int				id;
+	char			state;
+	int				*left_fork;
+	int				*right_fork;
+	long			current_time;
+	long			last_eat_time;
+	long			starve_time;
+	int				eat_count;
 }	t_philo;
 
 typedef struct s_table
 {
-	t_philo			*philos;
-	int				*forks;
-	long			start_time;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				must_eat_count;
-	int				total_eat_count;
-	int				philo_count;
+	t_philo	*philos;
+	int		*forks;
+	long	start_time;
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		must_eat_count;
+	int		total_eat_count;
+	int		philo_count;
+	int		init_count;
 }	t_table;
 
 void	start_simulation(t_table *table);
