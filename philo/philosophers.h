@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/07 15:15:20 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 15:53:43 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-# define GREEN "\033[1;32m"
-# define RESET "\033[0m"
+typedef pthread_mutex_t	t_mutex;
 
 enum e_state
 {
@@ -31,25 +30,24 @@ enum e_state
 	THINKING = 3
 };
 
-
 // Don't need to free 'left_fork' and 'right_fork'
 typedef struct s_philo
 {
-	pthread_mutex_t	state_mutex;
-	int				id;
-	char			state;
-	int				*left_fork;
-	int				*right_fork;
-	long			current_time;
-	long			last_eat_time;
-	long			starve_time;
-	int				eat_count;
+	t_mutex	state_mutex;
+	int		id;
+	char	state;
+	t_mutex	*left_fork;
+	t_mutex	*right_fork;
+	long	current_time;
+	long	last_eat_time;
+	long	starve_time;
+	int		eat_count;
 }	t_philo;
 
 typedef struct s_table
 {
 	t_philo	*philos;
-	int		*forks;
+	t_mutex	*forks;
 	long	start_time;
 	int		time_to_die;
 	int		time_to_eat;
@@ -67,11 +65,11 @@ void	p_eat(t_philo *p, t_table *t);
 void	p_take_fork(t_philo *p, long start);
 void	p_sleep(t_philo *p, t_table *t);
 void	p_think(t_philo *p, long start);
-void	p_die(t_philo *p, long start, int *p_count, pthread_mutex_t *m);
+void	p_die(t_philo *p, long start, int *p_count, t_mutex *m);
 
 void	init_env(t_table *t, char *argv[]);
-t_philo	*init_philos(int *forks, int count, long starve_time);
-int		*init_forks(int count);
+t_philo	*init_philos(t_mutex *forks, int count, long starve_time);
+t_mutex	*init_forks(int count);
 void	clean_up(t_table *table);
 
 void	log_activity(long start_time, int id, char *msg);

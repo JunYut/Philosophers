@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 15:23:18 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 16:04:39 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	p_eat(t_philo *p, t_table *t)
 	usleep(t->time_to_eat * 1000);
 	p->eat_count++;
 	t->total_eat_count++;
-	*p->left_fork = 0;
-	*p->right_fork = 0;
 	p->last_eat_time = get_time_ms();
 	pthread_mutex_unlock(&p->state_mutex);
 }
@@ -46,21 +44,16 @@ void	p_eat(t_philo *p, t_table *t)
 // 'id' represents a fork that is being used by a philosopher
 void	p_take_fork(t_philo *p, long start)
 {
-	pthread_mutex_lock(&p->state_mutex);
 	if (p->state == DEAD)
 	{
-		pthread_mutex_unlock(&p->state_mutex);
 		return ;
 	}
-	if (*p->left_fork == 0 && *p->right_fork == 0)
-	{
-		log_activity(start, p->id,
-		"\033[0;33mhas taken a fork\033[0m");
-		*p->left_fork = p->id;
-		log_activity(start, p->id,
-		"\033[0;33mhas taken a fork\033[0m");
-		*p->right_fork = p->id;
-	}
+	pthread_mutex_lock(p->left_fork);
+	log_activity(start, p->id,
+	"\033[0;33mhas taken a fork\033[0m");
+	pthread_mutex_lock(p->right_fork);
+	log_activity(start, p->id,
+	"\033[0;33mhas taken a fork\033[0m");
 	pthread_mutex_unlock(&p->state_mutex);
 }
 
@@ -85,6 +78,8 @@ void	p_sleep(t_philo *p, t_table *t)
 		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
 		return ;
 	}
+	pthread_mutex_unlock(p->left_fork);
+	pthread_mutex_unlock(p->right_fork);
 	usleep(t->time_to_sleep * 1000);
 	pthread_mutex_unlock(&p->state_mutex);
 }
@@ -103,7 +98,7 @@ void	p_think(t_philo *p, long start)
 	pthread_mutex_unlock(&p->state_mutex);
 }
 
-void	p_die(t_philo *p, long start, int *p_count, pthread_mutex_t *m)
+void	p_die(t_philo *p, long start, int *p_count, t_mutex *m)
 {
 	pthread_mutex_lock(m);
 	// printf("before_die[%d]: %d\n", p->id, p->state);	// Debug

@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 15:19:18 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 16:00:39 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_env(t_table *t, char *argv[])
 	t->total_eat_count = 0;
 }
 
-t_philo	*init_philos(int *forks, int count, long starve_time)
+t_philo	*init_philos(t_mutex *forks, int count, long starve_time)
 {
 	t_philo	*philos;
 	int		i;
@@ -60,15 +60,15 @@ t_philo	*init_philos(int *forks, int count, long starve_time)
 }
 
 // '0' represents a fork that is not being used
-int	*init_forks(int count)
+t_mutex	*init_forks(int count)
 {
-	int	*forks;
-	int	i;
+	t_mutex	*forks;
+	int				i;
 
-	forks = (int *)ft_malloc(sizeof(int) * count);
+	forks = (t_mutex *)ft_malloc(sizeof(t_mutex) * count);
 	i = -1;
 	while (++i < count)
-		forks[i] = 0;
+		pthread_mutex_init(&forks[i], NULL);
 	return (forks);
 }
 
