@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/07 15:15:20 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 16:44:07 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ void	init_env(t_table *t, char *argv[]);
 t_philo	*init_philos(int *forks, int count, long starve_time);
 int		*init_forks(int count);
 void	clean_up(t_table *table);
+
+char	validation(char *argv[]);
+char	is_num(char *str);
 
 void	log_activity(long start_time, int id, char *msg);
 long	get_time_ms(void);

@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 16:22:05 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 16:54:13 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	start_simulation(t_table *table)
 {
-	pthread_t	philos[table->philo_count];
-	pthread_t	timers[table->philo_count];
+	pthread_t	*philos;
+	pthread_t	*timers;
 	int			i;
 
 	printf("Starting simulation...\n\n");
+	philos = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->init_count);
+	timers = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->init_count);
 	i = -1;
 	while (++i < table->init_count)
 	{
@@ -33,6 +35,8 @@ void	start_simulation(t_table *table)
 	}
 	printf("total_eat_count: %d\n\n", table->total_eat_count);	// Debug
 	printf("Ending simulation...\n");
+	free(philos);
+	free(timers);
 }
 
 void	*philo_routine(void	*arg)
