@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 23:40:27 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 10:48:26 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	p_eat(t_philo *p, t_table *t)
 	if (p->current_time + t->time_to_eat > p->starve_time)
 	{
 		usleep((p->starve_time - p->current_time) * 1000);
+		printf("p_eat[%d]\n", p->id);	// Debug
 		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
 		return ;
 	}
@@ -48,8 +49,6 @@ void	p_take_fork(t_philo *p, long start)
 		"\033[0;33mhas taken a fork\033[0m");
 		printf("\n");
 		*p->left_fork = p->id;
-		if (p->state == DEAD)
-			return ;
 		log_activity(start, p->id,
 		"\033[0;33mhas taken a fork\033[0m");
 		printf("\n");
@@ -69,6 +68,7 @@ void	p_sleep(t_philo *p, t_table *t)
 	if (p->current_time + t->time_to_sleep > p->starve_time)
 	{
 		usleep((p->starve_time - p->current_time) * 1000);
+		printf("p_sleep[%d]\n", p->id);	// Debug
 		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
 		return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/06 23:33:30 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 10:39:39 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	init_env(t_table *t, char *argv[])
 		t->must_eat_count = ft_atoi(argv[5]);
 	else
 		t->must_eat_count = 5;
+	printf("philosopher count: %d\n\n", t->philo_count);
+	printf("time_to_die: %d\n\n", t->time_to_die);
+	printf("time_to_eat: %d\n\n", t->time_to_eat);
+	printf("time_to_sleep: %d\n\n", t->time_to_sleep);
+	printf("must_eat_count: %d\n\n", t->must_eat_count);
 	t->total_eat_count = 0;
 }
 
