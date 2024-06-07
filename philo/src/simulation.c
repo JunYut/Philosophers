@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 10:43:37 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 11:16:46 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,15 @@ void	*philo_routine(void	*arg)
 		while ((*p->left_fork != p->id || *p->right_fork != p->id)
 			&& p->state != DEAD)
 		{
-			// printf("state[%d]: %d\n", p->id, p->state);	// Debug
 			p_take_fork(p, t->start_time);
 		}
 		// print_forks(t->forks, t->philo_count, 'i');	// Debug
+		printf("before_eat_state[%d]: %d\n", p->id, p->state);	// Debug
 		p_eat(p, t);
 		// printf("time_to_die[%d]: %ld\n", p->id, p->last_eat_time + t->time_to_die - t->start_time);	// Debug
+		printf("before_sleep_state[%d]: %d\n", p->id, p->state);	// Debug
 		p_sleep(p, t);
+		printf("after_sleep_state[%d]: %d\n", p->id, p->state);	// Debug
 	}
 	printf("total_eat_count[%d]: %d\n", p->id, t->total_eat_count);	// Debug
 	return (NULL);
