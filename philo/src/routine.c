@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 10:48:26 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 10:55:09 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	p_eat(t_philo *p, t_table *t)
 	{
 		usleep((p->starve_time - p->current_time) * 1000);
 		printf("p_eat[%d]\n", p->id);	// Debug
+		printf("timer: %ld\n", p->starve_time - p->current_time);	// Debug
 		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
 		return ;
 	}
