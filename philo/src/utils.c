@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:21:15 by we                #+#    #+#             */
-/*   Updated: 2024/06/04 09:51:58 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/07 15:22:46 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	log_activity(long start_time, int id, char *msg)
 	long	current_time;
 
 	current_time = get_time_ms();
-	printf("%ldms: %d %s\n", current_time - start_time, id, msg);
+	printf("%ldms: %d %s\n\n", current_time - start_time, id, msg);
 }
 
 long	get_time_ms(void)

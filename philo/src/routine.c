@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 15:11:34 by we               ###   ########.fr       */
+/*   Updated: 2024/06/07 15:23:18 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	p_eat(t_philo *p, t_table *t)
 		return ;
 	}
 	log_activity(t->start_time, p->id, "\033[0;32mis eating\033[0m");
-	printf("\n");
 	p->state = EATING;
 	if (p->current_time + t->time_to_eat > p->starve_time)
 	{
@@ -57,11 +56,9 @@ void	p_take_fork(t_philo *p, long start)
 	{
 		log_activity(start, p->id,
 		"\033[0;33mhas taken a fork\033[0m");
-		printf("\n");
 		*p->left_fork = p->id;
 		log_activity(start, p->id,
 		"\033[0;33mhas taken a fork\033[0m");
-		printf("\n");
 		*p->right_fork = p->id;
 	}
 	pthread_mutex_unlock(&p->state_mutex);
@@ -77,7 +74,6 @@ void	p_sleep(t_philo *p, t_table *t)
 		return ;
 	}
 	log_activity(t->start_time, p->id, "\033[0;34mis sleeping\033[0m");
-	printf("\n");
 	p->state = SLEEPING;
 	if (p->current_time + t->time_to_sleep > p->starve_time)
 	{
@@ -103,7 +99,6 @@ void	p_think(t_philo *p, long start)
 		return ;
 	}
 	log_activity(start, p->id, "is thinking");
-	printf("\n");
 	p->state = THINKING;
 	pthread_mutex_unlock(&p->state_mutex);
 }
@@ -118,7 +113,6 @@ void	p_die(t_philo *p, long start, int *p_count, pthread_mutex_t *m)
 		return ;
 	}
 	log_activity(start, p->id, "\033[0;31mdied\033[0m");
-	printf("\n");
 	p->state = DEAD;
 	*p_count -= 1;
 	pthread_mutex_unlock(m);
