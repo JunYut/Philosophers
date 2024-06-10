@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/10 09:40:36 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/10 10:10:27 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,16 @@ void	p_die(t_philo *p, long start, int *p_count, t_mutex *m)
 	}
 	log_activity(start, p->id, "\033[0;31mdied\033[0m");
 	p->state = DEAD;
+	if (*p->r_fork_status == p->id)
+	{
+		pthread_mutex_unlock(p->right_fork);
+		*p->r_fork_status = 0;
+	}
+	if (*p->l_fork_status == p->id)
+	{
+		pthread_mutex_unlock(p->left_fork);
+		*p->l_fork_status = 0;
+	}
 	*p_count -= 1;
 	pthread_mutex_unlock(m);
 }
