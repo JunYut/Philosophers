@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 17:07:14 by we               ###   ########.fr       */
+/*   Updated: 2024/06/10 09:40:36 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,16 @@ void	p_eat(t_philo *p, t_table *t)
 void	p_take_fork(t_philo *p, long start)
 {
 	if (p->state == DEAD)
-	{
 		return ;
+	if (*p->r_fork_status == 0 && *p->l_fork_status == 0)
+	{
+		pthread_mutex_lock(p->right_fork);
+		*p->r_fork_status = p->id;
+		log_activity(start, p->id, "\033[0;33mhas taken a fork\033[0m");
+		pthread_mutex_lock(p->left_fork);
+		*p->l_fork_status = p->id;
+		log_activity(start, p->id, "\033[0;33mhas taken a fork\033[0m");
 	}
-	pthread_mutex_lock(p->right_fork);
-	log_activity(start, p->id,
-	"\033[0;33mhas taken a fork\033[0m");
-	pthread_mutex_lock(p->left_fork);
-	log_activity(start, p->id,
-	"\033[0;33mhas taken a fork\033[0m");
 }
 
 void	p_sleep(t_philo *p, t_table *t)
@@ -78,7 +79,9 @@ void	p_sleep(t_philo *p, t_table *t)
 		return ;
 	}
 	pthread_mutex_unlock(p->right_fork);
+	*p->r_fork_status = 0;
 	pthread_mutex_unlock(p->left_fork);
+	*p->l_fork_status = 0;
 	usleep(t->time_to_sleep * 1000);
 	pthread_mutex_unlock(&p->state_mutex);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/07 15:53:43 by we               ###   ########.fr       */
+/*   Updated: 2024/06/10 09:38:35 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,16 @@ enum e_state
 	THINKING = 3
 };
 
-// Don't need to free 'left_fork' and 'right_fork'
+// Don't need to free 'left_fork', 'right_fork' and 'forks_status'
 typedef struct s_philo
 {
 	t_mutex	state_mutex;
 	int		id;
 	char	state;
-	t_mutex	*left_fork;
 	t_mutex	*right_fork;
+	t_mutex	*left_fork;
+	int		*r_fork_status;
+	int		*l_fork_status;
 	long	current_time;
 	long	last_eat_time;
 	long	starve_time;
@@ -48,6 +50,7 @@ typedef struct s_table
 {
 	t_philo	*philos;
 	t_mutex	*forks;
+	int		*forks_status;
 	long	start_time;
 	int		time_to_die;
 	int		time_to_eat;
@@ -68,8 +71,8 @@ void	p_think(t_philo *p, long start);
 void	p_die(t_philo *p, long start, int *p_count, t_mutex *m);
 
 void	init_env(t_table *t, char *argv[]);
-t_philo	*init_philos(t_mutex *forks, int count, long starve_time);
-t_mutex	*init_forks(int count);
+void	init_philos(t_philo *p, int count, t_table *t);
+void	init_forks(t_mutex *forks, int *forks_status, int count);
 void	clean_up(t_table *table);
 
 void	log_activity(long start_time, int id, char *msg);
