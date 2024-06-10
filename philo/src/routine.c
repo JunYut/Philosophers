@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/10 10:10:27 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/10 10:27:36 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	p_eat(t_philo *p, t_table *t)
 	usleep(t->time_to_eat * 1000);
 	p->eat_count++;
 	t->total_eat_count++;
-	p->last_eat_time = get_time_ms();
+	p->starve_time = get_time_ms() + t->time_to_die;
+	// printf("starve_time[%d]: %ld\n", p->id, p->starve_time - t->start_time);	// Debug
 	pthread_mutex_unlock(&p->state_mutex);
 }
 

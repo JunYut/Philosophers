@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/10 10:07:04 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/10 10:25:56 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*philo_routine(void	*arg)
 		p_think(p, t->start_time);
 		while (*p->r_fork_status != p->id || *p->l_fork_status != p->id)
 			p_take_fork(p, t->start_time);
-		// print_forks(t->forks, t->philo_count, 'i');	// Debug
+		// print_forks(t->forks_status, t->init_count, 'a');	// Debug
 		p_eat(p, t);
 		p_sleep(p, t);
 	}
@@ -70,7 +70,7 @@ void	*timer(void *arg)
 		&& t->total_eat_count != t->philo_count * t->must_eat_count)
 	{
 		p->current_time = get_time_ms() - t->start_time;
-		p->starve_time = p->last_eat_time + t->time_to_die - t->start_time;
+		// p->starve_time = p->last_eat_time + t->time_to_die - t->start_time;
 		// printf("current_time[%d]: %ld\n", p->id, p->current_time);	// Debug
 		// printf("starve_time[%d]: %ld\n", p->id, p->starve_time);	// Debug
 		if (p->state != DEAD && p->current_time > p->starve_time)

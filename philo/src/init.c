@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/10 09:46:00 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/10 10:27:49 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	init_philos(t_philo *p, int count, t_table *t)
 		}
 		p[i].left_fork = &t->forks[i];
 		p[i].l_fork_status = &t->forks_status[i];
-		p[i].last_eat_time = get_time_ms();
 		p[i].starve_time = t->time_to_die;
 		p[i].eat_count = 0;
 		pthread_mutex_init(&p[i].state_mutex, NULL);

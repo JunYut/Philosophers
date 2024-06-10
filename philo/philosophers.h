@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/10 09:38:35 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/10 10:27:40 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_philo
 	int		*r_fork_status;
 	int		*l_fork_status;
 	long	current_time;
-	long	last_eat_time;
 	long	starve_time;
 	int		eat_count;
 }	t_philo;
