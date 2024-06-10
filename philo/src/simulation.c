@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/10 10:25:56 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/10 10:39:53 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	*philo_routine(void	*arg)
 
 	t = (t_table *)arg;
 	p = t->philos + i++;
-	while (p->state != DEAD && t->philo_count == t->init_count &&
-		p->eat_count < t->must_eat_count)
+	while (p->state != DEAD && p->eat_count < t->must_eat_count
+		&& t->philo_count == t->init_count)
 	{
 		p_think(p, t->start_time);
 		while (*p->r_fork_status != p->id || *p->l_fork_status != p->id)
 			p_take_fork(p, t->start_time);
-		// print_forks(t->forks_status, t->init_count, 'a');	// Debug
+		print_forks(t->forks_status, t->init_count, 'i');	// Debug
 		p_eat(p, t);
 		p_sleep(p, t);
 	}
@@ -65,14 +65,11 @@ void	*timer(void *arg)
 
 	t = (t_table *)arg;
 	p = t->philos + i++;
-	while (p->state != DEAD
-		&& p->eat_count < t->must_eat_count
-		&& t->total_eat_count != t->philo_count * t->must_eat_count)
+	while (p->state != DEAD && p->eat_count < t->must_eat_count
+		&& t->philo_count == t->init_count)
 	{
 		p->current_time = get_time_ms() - t->start_time;
-		// p->starve_time = p->last_eat_time + t->time_to_die - t->start_time;
 		// printf("current_time[%d]: %ld\n", p->id, p->current_time);	// Debug
-		// printf("starve_time[%d]: %ld\n", p->id, p->starve_time);	// Debug
 		if (p->state != DEAD && p->current_time > p->starve_time)
 		{
 			p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
