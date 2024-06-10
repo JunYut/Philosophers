@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/10 10:39:53 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/10 10:44:04 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	*philo_routine(void	*arg)
 		&& t->philo_count == t->init_count)
 	{
 		p_think(p, t->start_time);
-		while (*p->r_fork_status != p->id || *p->l_fork_status != p->id)
+		while (p->state != DEAD
+			&& (*p->r_fork_status != p->id || *p->l_fork_status != p->id))
 			p_take_fork(p, t->start_time);
 		print_forks(t->forks_status, t->init_count, 'i');	// Debug
 		p_eat(p, t);
