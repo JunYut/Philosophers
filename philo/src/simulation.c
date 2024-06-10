@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/10 09:17:49 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/10 10:00:37 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	*timer(void *arg)
 	t = (t_table *)arg;
 	p = t->philos + i++;
 	while (p->state != DEAD
+		&& p->eat_count < t->must_eat_count
 		&& t->total_eat_count != t->philo_count * t->must_eat_count)
 	{
 		p->current_time = get_time_ms() - t->start_time;
