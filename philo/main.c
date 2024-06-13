@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:52 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/13 16:57:01 by we               ###   ########.fr       */
+/*   Updated: 2024/06/13 17:08:12 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char *argv[])
 	(void)argv;
 
 	t_table	table;
-	char *args[] = {0, "4", "310", "200", "100", "5"};
+	char *args[] = {0, "2", "410", "200", "100", "5"};
 
 	init_env(&table, args);
 	start_simulation(&table);
