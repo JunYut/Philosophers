@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 15:19:18 by we               ###   ########.fr       */
+/*   Updated: 2024/06/13 12:19:53 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ void	init_env(t_table *t, char *argv[])
 	printf("Initializing environment...\n\n");
 	t->philo_count = ft_atoi(argv[1]);
 	t->init_count = t->philo_count;
-	t->forks = init_forks(t->philo_count);
-	t->philos = init_philos(t->forks, t->philo_count, ft_atoi(argv[2]));
+	t->forks = (t_mutex *)ft_malloc(sizeof(t_mutex) * t->philo_count);
+	t->forks_status = (int *)ft_malloc(sizeof(int) * t->philo_count);
+	t->philos = (t_philo *)ft_malloc(sizeof(t_philo) * t->philo_count);
 	t->start_time = get_time_ms();
 	t->time_to_die = ft_atoi(argv[2]);
 	t->time_to_eat = ft_atoi(argv[3]);
@@ -27,6 +28,9 @@ void	init_env(t_table *t, char *argv[])
 		t->must_eat_count = ft_atoi(argv[5]);
 	else
 		t->must_eat_count = 5;
+	init_forks(t->forks, t->forks_status, t->philo_count);
+	init_philos(t->philos, t->philo_count, t);
+	pthread_mutex_init(&t->forks_mutex, NULL);
 	printf("philosopher_count: %d\n\n", t->philo_count);
 	printf("time_to_die: %d\n\n", t->time_to_die);
 	printf("time_to_eat: %d\n\n", t->time_to_eat);
@@ -35,50 +39,58 @@ void	init_env(t_table *t, char *argv[])
 	t->total_eat_count = 0;
 }
 
-t_philo	*init_philos(int *forks, int count, long starve_time)
+void	init_philos(t_philo *p, int count, t_table *t)
 {
-	t_philo	*philos;
 	int		i;
 
-	philos = (t_philo *)ft_malloc(sizeof(t_philo) * count);
 	i = -1;
 	while (++i < count)
 	{
-		philos[i].id = i + 1;
-		philos[i].state = THINKING;
+		p[i].id = i + 1;
+		p[i].state = THINKING;
 		if (i == 0)
-			philos[i].right_fork = &forks[count - 1];
+		{
+			p[i].right_fork = &t->forks[count - 1];
+			p[i].r_fork_status = &t->forks_status[count - 1];
+		}
 		else
-			philos[i].right_fork = &forks[i - 1];
-		philos[i].left_fork = &forks[i];
-		philos[i].last_eat_time = get_time_ms();
-		philos[i].starve_time = starve_time;
-		philos[i].eat_count = 0;
-		pthread_mutex_init(&philos[i].state_mutex, NULL);
+		{
+			p[i].right_fork = &t->forks[i - 1];
+			p[i].r_fork_status = &t->forks_status[i - 1];
+		}
+		p[i].left_fork = &t->forks[i];
+		p[i].l_fork_status = &t->forks_status[i];
+		p[i].starve_time = t->time_to_die;
+		p[i].eat_count = 0;
+		pthread_mutex_init(&p[i].state_mutex, NULL);
 	}
-	return (philos);
 }
 
 // '0' represents a fork that is not being used
-int	*init_forks(int count)
+void	init_forks(t_mutex *forks, int *forks_status, int count)
 {
-	int	*forks;
-	int	i;
+	int				i;
 
-	forks = (int *)ft_malloc(sizeof(int) * count);
 	i = -1;
 	while (++i < count)
-		forks[i] = 0;
-	return (forks);
+	{
+		pthread_mutex_init(&forks[i], NULL);
+		forks_status[i] = 0;
+	}
 }
 
 void	clean_up(t_table *table)
 {
 	int	i;
 
-	free(table->philos);
-	free(table->forks);
 	i = -1;
 	while (++i < table->init_count)
+	{
 		pthread_mutex_destroy(&table->philos[i].state_mutex);
+		pthread_mutex_destroy(&table->forks[i]);
+	}
+	pthread_mutex_destroy(&table->forks_mutex);
+	free(table->philos);
+	free(table->forks);
+	free(table->forks_status);
 }
