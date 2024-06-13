@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/10 10:27:49 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/13 12:19:53 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_env(t_table *t, char *argv[])
 		t->must_eat_count = 5;
 	init_forks(t->forks, t->forks_status, t->philo_count);
 	init_philos(t->philos, t->philo_count, t);
+	pthread_mutex_init(&t->forks_mutex, NULL);
 	printf("philosopher_count: %d\n\n", t->philo_count);
 	printf("time_to_die: %d\n\n", t->time_to_die);
 	printf("time_to_eat: %d\n\n", t->time_to_eat);
@@ -88,6 +89,7 @@ void	clean_up(t_table *table)
 		pthread_mutex_destroy(&table->philos[i].state_mutex);
 		pthread_mutex_destroy(&table->forks[i]);
 	}
+	pthread_mutex_destroy(&table->forks_mutex);
 	free(table->philos);
 	free(table->forks);
 	free(table->forks_status);
