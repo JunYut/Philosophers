@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/13 12:23:31 by we               ###   ########.fr       */
+/*   Updated: 2024/06/13 16:54:41 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	start_simulation(t_table *table);
 void	*philo_routine(void *arg);
 void	*timer(void *arg);
 void	p_eat(t_philo *p, t_table *t);
-void	p_take_fork(t_philo *p, t_mutex *forks_mutex, long start);
+void	p_take_fork(t_philo *p, t_table *t, long start);
 void	p_sleep(t_philo *p, t_table *t);
 void	p_think(t_philo *p, long start);
 void	p_die(t_philo *p, long start, int *p_count, t_mutex *m);

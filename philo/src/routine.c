@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/13 12:49:05 by we               ###   ########.fr       */
+/*   Updated: 2024/06/13 16:55:42 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	p_eat(t_philo *p, t_table *t)
 
 // '0' represents a fork that is not being used
 // 'id' represents a fork that is being used by a philosopher
-void	p_take_fork(t_philo *p, t_mutex *forks_mutex, long start)
+void	p_take_fork(t_philo *p, t_table *t, long start)
 {
-	if (p->state == DEAD)
+	if (p->state == DEAD || t->philo_count != t->init_count)
 		return ;
-	pthread_mutex_lock(forks_mutex);
+	pthread_mutex_lock(&t->forks_mutex);
 	if (*p->r_fork_status == 0 && *p->l_fork_status == 0)
 	{
 		log_activity(start, p->id, "\033[0;33mhas taken a fork\033[0m");
@@ -56,7 +56,7 @@ void	p_take_fork(t_philo *p, t_mutex *forks_mutex, long start)
 		pthread_mutex_lock(p->left_fork);
 		*p->l_fork_status = p->id;
 	}
-	pthread_mutex_unlock(forks_mutex);
+	pthread_mutex_unlock(&t->forks_mutex);
 }
 
 void	p_sleep(t_philo *p, t_table *t)
