@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/13 12:23:09 by we               ###   ########.fr       */
+/*   Updated: 2024/06/13 12:49:05 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	p_eat(t_philo *p, t_table *t)
 {
 	// printf("before_eat[%d]: %d\n", p->id, p->state);	// Debug
-	if (p->state == DEAD)
+	if (p->state == DEAD || t->philo_count != t->init_count)
 	{
 		return ;
 	}
@@ -62,7 +62,7 @@ void	p_take_fork(t_philo *p, t_mutex *forks_mutex, long start)
 void	p_sleep(t_philo *p, t_table *t)
 {
 	// printf("before_sleep[%d]: %d\n", p->id, p->state);	// Debug
-	if (p->state == DEAD)
+	if (p->state == DEAD || t->philo_count != t->init_count)
 	{
 		return ;
 	}
