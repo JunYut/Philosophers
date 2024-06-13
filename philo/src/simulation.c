@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/10 11:02:21 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/13 12:23:47 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*philo_routine(void	*arg)
 		p_think(p, t->start_time);
 		while (p->state != DEAD
 			&& (*p->r_fork_status != p->id || *p->l_fork_status != p->id))
-			p_take_fork(p, t->start_time);
+			p_take_fork(p, &t->forks_mutex, t->start_time);
 		print_forks(t->forks_status, t->init_count, 'i');	// Debug
 		p_eat(p, t);
 		p_sleep(p, t);
