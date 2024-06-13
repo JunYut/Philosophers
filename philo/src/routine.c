@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/13 16:55:42 by we               ###   ########.fr       */
+/*   Updated: 2024/06/13 17:03:47 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	p_eat(t_philo *p, t_table *t)
 	{
 		pthread_mutex_unlock(&p->state_mutex);
 		if (p->starve_time - p->current_time <= 0)
-			p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
+			p_die(p, t, t->start_time);
 		else
 			usleep((p->starve_time - p->current_time) * 1000);
-		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
+		p_die(p, t, t->start_time);
 		return ;
 	}
 	usleep(t->time_to_eat * 1000);
@@ -73,10 +73,10 @@ void	p_sleep(t_philo *p, t_table *t)
 	{
 		pthread_mutex_unlock(&p->state_mutex);
 		if (p->starve_time - p->current_time <= 0)
-			p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
+			p_die(p, t, t->start_time);
 		else
 			usleep((p->starve_time - p->current_time) * 1000);
-		p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
+		p_die(p, t, t->start_time);
 		return ;
 	}
 	pthread_mutex_unlock(p->right_fork);
@@ -100,14 +100,14 @@ void	p_think(t_philo *p, long start)
 	pthread_mutex_unlock(&p->state_mutex);
 }
 
-void	p_die(t_philo *p, long start, int *p_count, t_mutex *m)
+void	p_die(t_philo *p, t_table *t, long start)
 {
 	// printf("before_die[%d]: %d\n", p->id, p->state);	// Debug
-	if (p->state == DEAD)
+	if (p->state == DEAD || t->philo_count != t->init_count)
 	{
 		return ;
 	}
-	pthread_mutex_lock(m);
+	pthread_mutex_lock(&p->state_mutex);
 	log_activity(start, p->id, "\033[0;31mdied\033[0m");
 	p->state = DEAD;
 	if (*p->r_fork_status == p->id)
@@ -120,6 +120,6 @@ void	p_die(t_philo *p, long start, int *p_count, t_mutex *m)
 		pthread_mutex_unlock(p->left_fork);
 		*p->l_fork_status = 0;
 	}
-	*p_count -= 1;
-	pthread_mutex_unlock(m);
+	t->philo_count -= 1;
+	pthread_mutex_unlock(&p->state_mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/13 16:56:31 by we               ###   ########.fr       */
+/*   Updated: 2024/06/13 17:03:29 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	*timer(void *arg)
 		// printf("current_time[%d]: %ld\n", p->id, p->current_time);	// Debug
 		if (p->state != DEAD && p->current_time > p->starve_time)
 		{
-			p_die(p, t->start_time, &t->philo_count, &p->state_mutex);
+			p_die(p, t, t->start_time);
 		}
 	}
 	return (NULL);
