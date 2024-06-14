@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 15:32:35 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 15:41:11 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	p_eat(t_philo *p, t_table *t)
 	pthread_mutex_lock(&p->state_mutex);
 	log_activity(t->start_time, p->id, "\033[0;32mis eating\033[0m");
 	p->state = EATING;
-	pthread_mutex_unlock(&t->end_sim_mutex);
 	if (p->current_time + t->time_to_eat >= p->starve_time)
 	{
 		pthread_mutex_unlock(&p->state_mutex);
@@ -42,6 +41,7 @@ void	p_eat(t_philo *p, t_table *t)
 	p->starve_time = get_time_ms() + t->time_to_die;
 	// printf("starve_time[%d]: %ld\n", p->id, p->starve_time - t->start_time);	// Debug
 	pthread_mutex_unlock(&p->state_mutex);
+	pthread_mutex_unlock(&t->end_sim_mutex);
 }
 
 // '0' represents a fork that is not being used
