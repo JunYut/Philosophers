@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 16:21:50 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 16:27:20 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	p_eat(t_philo *p, t_table *t)
 {
 	// printf("before_eat[%d]: %d\n", p->id, p->state);	// Debug
-	pthread_mutex_lock(&t->end_sim_mutex);
+	// pthread_mutex_lock(&t->end_sim_mutex);
 	if (p->state == DEAD || t->end_sim)
 	{
 		pthread_mutex_unlock(&t->end_sim_mutex);
@@ -41,7 +41,7 @@ void	p_eat(t_philo *p, t_table *t)
 	p->starve_time = get_time_ms() + t->time_to_die;
 	// printf("starve_time[%d]: %ld\n", p->id, p->starve_time - t->start_time);	// Debug
 	pthread_mutex_unlock(&p->state_mutex);
-	pthread_mutex_unlock(&t->end_sim_mutex);
+	// pthread_mutex_unlock(&t->end_sim_mutex);
 }
 
 // '0' represents a fork that is not being used
