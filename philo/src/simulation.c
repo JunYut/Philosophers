@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 14:34:01 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 14:36:38 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	*timer(void *arg)
 	{
 		p->current_time = get_time_ms() - t->start_time;
 		// printf("current_time[%d]: %ld\n", p->id, p->current_time);	// Debug
-		if (p->state != DEAD && p->current_time > p->starve_time)
+		if (p->state != DEAD && p->current_time >= p->starve_time)
 		{
 			p_die(p, t, t->start_time);
 		}
