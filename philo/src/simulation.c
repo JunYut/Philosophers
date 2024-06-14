@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 16:09:47 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 16:29:38 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	*philo_routine(void	*arg)
 		while (p->state != DEAD && !t->end_sim
 			&& (*p->r_fork_status != p->id || *p->l_fork_status != p->id))
 			p_take_fork(p, t, t->start_time);
-		print_forks(t->forks_status, t->philo_count, 'i');	// Debug
+		// print_forks(t->forks_status, t->philo_count, 'i');	// Debug
 		p_eat(p, t);
 		p_sleep(p, t);
 	}
