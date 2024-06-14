@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/13 17:14:44 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 11:14:03 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	p_eat(t_philo *p, t_table *t)
 {
 	// printf("before_eat[%d]: %d\n", p->id, p->state);	// Debug
-	if (p->state == DEAD || t->philo_count != t->init_count)
+	if (p->state == DEAD || t->end_sim)
 	{
 		return ;
 	}
@@ -44,7 +44,7 @@ void	p_eat(t_philo *p, t_table *t)
 // 'id' represents a fork that is being used by a philosopher
 void	p_take_fork(t_philo *p, t_table *t, long start)
 {
-	if (p->state == DEAD || t->philo_count != t->init_count)
+	if (p->state == DEAD || t->end_sim)
 		return ;
 	pthread_mutex_lock(&t->forks_mutex);
 	if (*p->r_fork_status == 0 && *p->l_fork_status == 0)
@@ -62,7 +62,7 @@ void	p_take_fork(t_philo *p, t_table *t, long start)
 void	p_sleep(t_philo *p, t_table *t)
 {
 	// printf("before_sleep[%d]: %d\n", p->id, p->state);	// Debug
-	if (p->state == DEAD || t->philo_count != t->init_count)
+	if (p->state == DEAD || t->end_sim)
 	{
 		return ;
 	}
@@ -103,7 +103,7 @@ void	p_think(t_philo *p, long start)
 void	p_die(t_philo *p, t_table *t, long start)
 {
 	// printf("before_die[%d]: %d\n", p->id, p->state);	// Debug
-	if (p->state == DEAD || t->philo_count != t->init_count)
+	if (p->state == DEAD || t->end_sim)
 	{
 		return ;
 	}
@@ -120,6 +120,6 @@ void	p_die(t_philo *p, t_table *t, long start)
 		pthread_mutex_unlock(p->left_fork);
 		*p->l_fork_status = 0;
 	}
-	t->philo_count -= 1;
+	t->end_sim = 1;
 	pthread_mutex_unlock(&p->state_mutex);
 }

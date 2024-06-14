@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/13 12:19:53 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 11:16:56 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	init_env(t_table *t, char *argv[])
 {
 	printf("Initializing environment...\n\n");
 	t->philo_count = ft_atoi(argv[1]);
-	t->init_count = t->philo_count;
 	t->forks = (t_mutex *)ft_malloc(sizeof(t_mutex) * t->philo_count);
 	t->forks_status = (int *)ft_malloc(sizeof(int) * t->philo_count);
 	t->philos = (t_philo *)ft_malloc(sizeof(t_philo) * t->philo_count);
@@ -24,10 +23,12 @@ void	init_env(t_table *t, char *argv[])
 	t->time_to_die = ft_atoi(argv[2]);
 	t->time_to_eat = ft_atoi(argv[3]);
 	t->time_to_sleep = ft_atoi(argv[4]);
+	t->end_sim = 0;
 	if (argv[5])
 		t->must_eat_count = ft_atoi(argv[5]);
 	else
 		t->must_eat_count = 5;
+	t->total_eat_count = 0;
 	init_forks(t->forks, t->forks_status, t->philo_count);
 	init_philos(t->philos, t->philo_count, t);
 	pthread_mutex_init(&t->forks_mutex, NULL);
@@ -36,7 +37,6 @@ void	init_env(t_table *t, char *argv[])
 	printf("time_to_eat: %d\n\n", t->time_to_eat);
 	printf("time_to_sleep: %d\n\n", t->time_to_sleep);
 	printf("must_eat_count: %d\n\n", t->must_eat_count);
-	t->total_eat_count = 0;
 }
 
 void	init_philos(t_philo *p, int count, t_table *t)
@@ -84,7 +84,7 @@ void	clean_up(t_table *table)
 	int	i;
 
 	i = -1;
-	while (++i < table->init_count)
+	while (++i < table->philo_count)
 	{
 		pthread_mutex_destroy(&table->philos[i].state_mutex);
 		pthread_mutex_destroy(&table->forks[i]);

@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/13 17:24:01 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 11:18:36 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	start_simulation(t_table *table)
 	int			i;
 
 	printf("Starting simulation...\n\n");
-	philos = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->init_count);
-	timers = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->init_count);
+	philos = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->end_sim);
+	timers = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->end_sim);
 	i = -1;
-	while (++i < table->init_count)
+	while (++i < table->philo_count)
 	{
 		pthread_create(&philos[i], NULL, philo_routine, table);
 		pthread_create(&timers[i], NULL, timer, table);
 	}
 	i = -1;
-	while (++i < table->init_count)
+	while (++i < table->philo_count)
 	{
 		pthread_join(philos[i], NULL);
 		pthread_join(timers[i], NULL);
@@ -48,14 +48,13 @@ void	*philo_routine(void	*arg)
 	t = (t_table *)arg;
 	p = t->philos + i++;
 	while (p->state != DEAD && p->eat_count < t->must_eat_count
-		&& t->philo_count == t->init_count)
+		&& !t->end_sim)
 	{
 		p_think(p, t->start_time);
-		while (p->state != DEAD
-			&& t->philo_count == t->init_count
+		while (p->state != DEAD && !t->end_sim
 			&& (*p->r_fork_status != p->id || *p->l_fork_status != p->id))
 			p_take_fork(p, t, t->start_time);
-		// print_forks(t->forks_status, t->init_count, 'i');	// Debug
+		// print_forks(t->forks_status, t->end_sim, 'i');	// Debug
 		p_eat(p, t);
 		p_sleep(p, t);
 	}
@@ -72,7 +71,7 @@ void	*timer(void *arg)
 	t = (t_table *)arg;
 	p = t->philos + i++;
 	while (p->state != DEAD && p->eat_count < t->must_eat_count
-		&& t->philo_count == t->init_count)
+		&& !t->end_sim)
 	{
 		p->current_time = get_time_ms() - t->start_time;
 		// printf("current_time[%d]: %ld\n", p->id, p->current_time);	// Debug

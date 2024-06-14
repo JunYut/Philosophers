@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/13 17:12:02 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 11:13:01 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_table
 	int		must_eat_count;
 	int		total_eat_count;
 	int		philo_count;
-	int		init_count;
+	int		end_sim;
 }	t_table;
 
 void	start_simulation(t_table *table);
