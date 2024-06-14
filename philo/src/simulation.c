@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 11:37:09 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 11:43:01 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	start_simulation(t_table *table)
 		pthread_join(philos[i], NULL);
 		pthread_join(timers[i], NULL);
 	}
-	printf("total_eat_count: %d/%d\n\n", table->total_eat_count,
+	printf("Ending simulation...\n\n");
+	printf("total_eat_count: %d/%d\n", table->total_eat_count,
 		table->philo_count * table->must_eat_count);
-	printf("Ending simulation...\n");
 	free(philos);
 	free(timers);
 }

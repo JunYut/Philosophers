@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:58:33 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 16:51:07 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 11:44:23 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char	validation(char *argv[])
 			return (0);
 	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > 200)
 		return (0);
-	if (ft_atoi(argv[2]) < 60 || ft_atoi(argv[3]) < 60 || ft_atoi(argv[4]) < 60)
+	if (ft_atoi(argv[2]) < 60 || ft_atoi(argv[3]) < 60 || ft_atoi(argv[4]) < 60
+		|| (argv[5] && ft_atoi(argv[5]) < 1))
 		return (0);
 	return (1);
 }

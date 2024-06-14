@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 11:16:56 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 11:47:01 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	init_env(t_table *t, char *argv[])
 	t->time_to_die = ft_atoi(argv[2]);
 	t->time_to_eat = ft_atoi(argv[3]);
 	t->time_to_sleep = ft_atoi(argv[4]);
-	t->end_sim = 0;
 	if (argv[5])
 		t->must_eat_count = ft_atoi(argv[5]);
 	else
 		t->must_eat_count = 5;
 	t->total_eat_count = 0;
+	t->end_sim = 0;
 	init_forks(t->forks, t->forks_status, t->philo_count);
 	init_philos(t->philos, t->philo_count, t);
 	pthread_mutex_init(&t->forks_mutex, NULL);
