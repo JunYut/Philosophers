@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 11:47:01 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 14:26:53 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_env(t_table *t, char *argv[])
 
 void	init_philos(t_philo *p, int count, t_table *t)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (++i < count)
@@ -69,7 +69,7 @@ void	init_philos(t_philo *p, int count, t_table *t)
 // '0' represents a fork that is not being used
 void	init_forks(t_mutex *forks, int *forks_status, int count)
 {
-	int				i;
+	int	i;
 
 	i = -1;
 	while (++i < count)

@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 11:45:43 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 14:33:46 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ void	p_sleep(t_philo *p, t_table *t)
 	pthread_mutex_unlock(&p->state_mutex);
 }
 
-void	p_think(t_philo *p, int end_sim, long start)
+void	p_think(t_philo *p, t_table *t, long start)
 {
 	// printf("before_think[%d]: %d\n", p->id, p->state);	// Debug
-	if (p->state == DEAD || end_sim)
+	if (p->state == DEAD || t->end_sim)
 		return ;
 	pthread_mutex_lock(&p->state_mutex);
 	log_activity(start, p->id, "is thinking");
@@ -102,16 +102,6 @@ void	p_die(t_philo *p, t_table *t, long start)
 	pthread_mutex_lock(&p->state_mutex);
 	log_activity(start, p->id, "\033[0;31mdied\033[0m");
 	p->state = DEAD;
-	if (*p->r_fork_status == p->id)
-	{
-		pthread_mutex_unlock(p->right_fork);
-		*p->r_fork_status = 0;
-	}
-	if (*p->l_fork_status == p->id)
-	{
-		pthread_mutex_unlock(p->left_fork);
-		*p->l_fork_status = 0;
-	}
 	t->end_sim = 1;
 	pthread_mutex_unlock(&p->state_mutex);
 }

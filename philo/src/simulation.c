@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 11:43:01 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 14:34:01 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,9 @@ void	*philo_routine(void	*arg)
 
 	t = (t_table *)arg;
 	p = t->philos + i++;
-	while (p->state != DEAD && p->eat_count < t->must_eat_count
-		&& !t->end_sim)
+	while (p->state != DEAD && !t->end_sim && p->eat_count < t->must_eat_count)
 	{
-		p_think(p, t->end_sim, t->start_time);
+		p_think(p, t, t->start_time);
 		while (p->state != DEAD && !t->end_sim
 			&& (*p->r_fork_status != p->id || *p->l_fork_status != p->id))
 			p_take_fork(p, t, t->start_time);
@@ -71,8 +70,7 @@ void	*timer(void *arg)
 
 	t = (t_table *)arg;
 	p = t->philos + i++;
-	while (p->state != DEAD && !t->end_sim
-		&& p->eat_count < t->must_eat_count)
+	while (p->state != DEAD && !t->end_sim && p->eat_count < t->must_eat_count)
 	{
 		p->current_time = get_time_ms() - t->start_time;
 		// printf("current_time[%d]: %ld\n", p->id, p->current_time);	// Debug
