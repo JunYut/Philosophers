@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 11:14:03 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 11:30:38 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	p_eat(t_philo *p, t_table *t)
 {
 	// printf("before_eat[%d]: %d\n", p->id, p->state);	// Debug
 	if (p->state == DEAD || t->end_sim)
-	{
 		return ;
-	}
 	pthread_mutex_lock(&p->state_mutex);
 	log_activity(t->start_time, p->id, "\033[0;32mis eating\033[0m");
 	p->state = EATING;
@@ -63,9 +61,7 @@ void	p_sleep(t_philo *p, t_table *t)
 {
 	// printf("before_sleep[%d]: %d\n", p->id, p->state);	// Debug
 	if (p->state == DEAD || t->end_sim)
-	{
 		return ;
-	}
 	pthread_mutex_lock(&p->state_mutex);
 	log_activity(t->start_time, p->id, "\033[0;34mis sleeping\033[0m");
 	p->state = SLEEPING;
@@ -87,13 +83,11 @@ void	p_sleep(t_philo *p, t_table *t)
 	pthread_mutex_unlock(&p->state_mutex);
 }
 
-void	p_think(t_philo *p, long start)
+void	p_think(t_philo *p, int end_sim, long start)
 {
 	// printf("before_think[%d]: %d\n", p->id, p->state);	// Debug
-	if (p->state == DEAD)
-	{
+	if (p->state == DEAD || end_sim)
 		return ;
-	}
 	pthread_mutex_lock(&p->state_mutex);
 	log_activity(start, p->id, "is thinking");
 	p->state = THINKING;
@@ -104,9 +98,7 @@ void	p_die(t_philo *p, t_table *t, long start)
 {
 	// printf("before_die[%d]: %d\n", p->id, p->state);	// Debug
 	if (p->state == DEAD || t->end_sim)
-	{
 		return ;
-	}
 	pthread_mutex_lock(&p->state_mutex);
 	log_activity(start, p->id, "\033[0;31mdied\033[0m");
 	p->state = DEAD;
