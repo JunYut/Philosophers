@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 11:29:49 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 11:37:09 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	start_simulation(t_table *table)
 	int			i;
 
 	printf("Starting simulation...\n\n");
-	philos = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->end_sim);
-	timers = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->end_sim);
+	philos = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->philo_count);
+	timers = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->philo_count);
 	i = -1;
 	while (++i < table->philo_count)
 	{
@@ -71,8 +71,8 @@ void	*timer(void *arg)
 
 	t = (t_table *)arg;
 	p = t->philos + i++;
-	while (p->state != DEAD && p->eat_count < t->must_eat_count
-		&& !t->end_sim)
+	while (p->state != DEAD && !t->end_sim
+		&& p->eat_count < t->must_eat_count)
 	{
 		p->current_time = get_time_ms() - t->start_time;
 		// printf("current_time[%d]: %ld\n", p->id, p->current_time);	// Debug
