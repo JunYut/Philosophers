@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/14 14:33:33 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 14:56:52 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_philo
 typedef struct s_table
 {
 	t_philo	*philos;
+	t_mutex end_sim_mutex;
 	t_mutex forks_mutex;
 	t_mutex	*forks;
 	int		*forks_status;

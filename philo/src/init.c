@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 14:26:53 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 14:57:14 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_env(t_table *t, char *argv[])
 	init_forks(t->forks, t->forks_status, t->philo_count);
 	init_philos(t->philos, t->philo_count, t);
 	pthread_mutex_init(&t->forks_mutex, NULL);
+	pthread_mutex_init(&t->end_sim_mutex, NULL);
 	printf("philosopher_count: %d\n\n", t->philo_count);
 	printf("time_to_die: %d\n\n", t->time_to_die);
 	printf("time_to_eat: %d\n\n", t->time_to_eat);
@@ -90,6 +91,7 @@ void	clean_up(t_table *table)
 		pthread_mutex_destroy(&table->forks[i]);
 	}
 	pthread_mutex_destroy(&table->forks_mutex);
+	pthread_mutex_destroy(&table->end_sim_mutex);
 	free(table->philos);
 	free(table->forks);
 	free(table->forks_status);
