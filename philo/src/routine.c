@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 15:41:11 by we               ###   ########.fr       */
+/*   Updated: 2024/06/14 16:21:50 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	p_sleep(t_philo *p, t_table *t)
 void	p_think(t_philo *p, t_table *t, long start)
 {
 	// printf("before_think[%d]: %d\n", p->id, p->state);	// Debug
-	pthread_mutex_lock(&t->end_sim_mutex);
+	// pthread_mutex_lock(&t->end_sim_mutex);
 	if (p->state == DEAD || t->end_sim)
 	{
 		pthread_mutex_unlock(&t->end_sim_mutex);
@@ -107,7 +107,7 @@ void	p_think(t_philo *p, t_table *t, long start)
 	log_activity(start, p->id, "is thinking");
 	p->state = THINKING;
 	pthread_mutex_unlock(&p->state_mutex);
-	pthread_mutex_unlock(&t->end_sim_mutex);
+	// pthread_mutex_unlock(&t->end_sim_mutex);
 }
 
 void	p_die(t_philo *p, t_table *t, long start)
