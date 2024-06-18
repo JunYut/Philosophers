@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/18 10:57:03 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/18 14:30:04 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct s_table
 
 void	start_simulation(t_table *table);
 void	*philo_routine(void *arg);
-void	*timer(void *arg);
 void	p_eat(t_philo *p, t_table *t);
 void	p_take_fork(t_philo *p, t_table *t, long start);
 void	p_sleep(t_philo *p, t_table *t);

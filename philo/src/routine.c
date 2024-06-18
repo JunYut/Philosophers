@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/18 11:29:18 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/18 14:35:53 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,11 @@ void	p_eat(t_philo *p, t_table *t)
 	log_activity(t->start_time, p->id, "\033[0;32mis eating\033[0m");
 	p->state = EATING;
 	pthread_mutex_unlock(&t->end_sim_mutex);
-	if (get_time_ms() - t->start_time + t->time_to_eat >= p->starve_time)
+	p->current_time = get_time_ms() - t->start_time;
+	if (p->current_time + t->time_to_eat >= p->starve_time)
 	{
 		pthread_mutex_unlock(&p->state_mutex);
-		if (p->starve_time - p->current_time <= 0)
-			p_die(p, t, t->start_time);
-		else
-			usleep_ms((p->starve_time - p->current_time));
+		usleep_ms(p->starve_time - p->current_time);
 		p_die(p, t, t->start_time);
 		return ;
 	}
@@ -73,13 +71,11 @@ void	p_sleep(t_philo *p, t_table *t)
 	pthread_mutex_lock(&p->state_mutex);
 	log_activity(t->start_time, p->id, "\033[0;34mis sleeping\033[0m");
 	p->state = SLEEPING;
-	if (get_time_ms() - t->start_time + t->time_to_sleep >= p->starve_time)
+	p->current_time = get_time_ms() - t->start_time;
+	if (p->current_time + t->time_to_sleep >= p->starve_time)
 	{
 		pthread_mutex_unlock(&p->state_mutex);
-		if (p->starve_time - p->current_time <= 0)
-			p_die(p, t, t->start_time);
-		else
-			usleep_ms((p->starve_time - p->current_time));
+		usleep_ms(p->starve_time - p->current_time);
 		p_die(p, t, t->start_time);
 		return ;
 	}
