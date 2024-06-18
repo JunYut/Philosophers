@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 16:29:38 by we               ###   ########.fr       */
+/*   Updated: 2024/06/18 08:53:38 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ void	*philo_routine(void	*arg)
 
 	t = (t_table *)arg;
 	p = t->philos + i++;
+	if (t->philo_count == 1)
+	{
+		usleep(t->time_to_die * 1000);
+		p_die(p, t, t->start_time);
+		return (NULL);
+	}
 	while (p->state != DEAD && !t->end_sim && p->eat_count < t->must_eat_count)
 	{
 		p_think(p, t, t->start_time);
