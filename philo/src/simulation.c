@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/18 10:54:59 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/18 11:13:24 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,29 @@
 void	start_simulation(t_table *table)
 {
 	pthread_t	*philos;
-	pthread_t	*timers;
+	// pthread_t	*timers;
 	int			i;
 
 	printf("Starting simulation...\n\n");
 	philos = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->philo_count);
-	timers = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->philo_count);
+	// timers = (pthread_t *)ft_malloc(sizeof(pthread_t) * table->philo_count);
 	i = -1;
 	while (++i < table->philo_count)
 	{
 		pthread_create(&philos[i], NULL, philo_routine, table);
-		pthread_create(&timers[i], NULL, timer, table);
+		// pthread_create(&timers[i], NULL, timer, table);
 	}
 	i = -1;
 	while (++i < table->philo_count)
 	{
 		pthread_join(philos[i], NULL);
-		pthread_join(timers[i], NULL);
+		// pthread_join(timers[i], NULL);
 	}
 	printf("Ending simulation...\n\n");
 	printf("total_eat_count: %d/%d\n", table->total_eat_count,
 		table->philo_count * table->must_eat_count);
 	free(philos);
-	free(timers);
+	// free(timers);
 }
 
 void	*philo_routine(void	*arg)

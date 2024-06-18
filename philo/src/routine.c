@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/18 10:40:14 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/18 11:29:18 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	p_eat(t_philo *p, t_table *t)
 	log_activity(t->start_time, p->id, "\033[0;32mis eating\033[0m");
 	p->state = EATING;
 	pthread_mutex_unlock(&t->end_sim_mutex);
-	if (p->current_time + t->time_to_eat >= p->starve_time)
+	if (get_time_ms() - t->start_time + t->time_to_eat >= p->starve_time)
 	{
 		pthread_mutex_unlock(&p->state_mutex);
 		if (p->starve_time - p->current_time <= 0)
@@ -35,8 +35,8 @@ void	p_eat(t_philo *p, t_table *t)
 		return ;
 	}
 	usleep_ms(t->time_to_eat);
-	p->eat_count++;
-	t->total_eat_count++;
+	p->eat_count += 1;
+	t->total_eat_count += 1;
 	p->starve_time = get_time_ms() + t->time_to_die;
 	// printf("starve_time[%d]: %ld\n", p->id, p->starve_time - t->start_time);	// Debug
 	pthread_mutex_unlock(&p->state_mutex);
@@ -73,7 +73,7 @@ void	p_sleep(t_philo *p, t_table *t)
 	pthread_mutex_lock(&p->state_mutex);
 	log_activity(t->start_time, p->id, "\033[0;34mis sleeping\033[0m");
 	p->state = SLEEPING;
-	if (p->current_time + t->time_to_sleep >= p->starve_time)
+	if (get_time_ms() - t->start_time + t->time_to_sleep >= p->starve_time)
 	{
 		pthread_mutex_unlock(&p->state_mutex);
 		if (p->starve_time - p->current_time <= 0)
