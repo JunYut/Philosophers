@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/14 14:56:52 by we               ###   ########.fr       */
+/*   Updated: 2024/06/18 10:57:03 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ char	validation(char *argv[]);
 char	is_num(char *str);
 
 void	log_activity(long start_time, int id, char *msg);
+void	usleep_ms(long ms);
 long	get_time_ms(void);
 void	*ft_malloc(size_t size);
 long	ft_atoi(const char *str);
-int		ft_strlen(const char *str);
 
 void	print_forks(int *forks, int count, char a_or_i);
 void	print_id(t_philo *philos, int count);

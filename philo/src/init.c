@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:02:39 by we                #+#    #+#             */
-/*   Updated: 2024/06/14 14:57:14 by we               ###   ########.fr       */
+/*   Updated: 2024/06/18 11:05:50 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	init_env(t_table *t, char *argv[])
 	pthread_mutex_init(&t->forks_mutex, NULL);
 	pthread_mutex_init(&t->end_sim_mutex, NULL);
 	printf("philosopher_count: %d\n\n", t->philo_count);
-	printf("time_to_die: %d\n\n", t->time_to_die);
-	printf("time_to_eat: %d\n\n", t->time_to_eat);
-	printf("time_to_sleep: %d\n\n", t->time_to_sleep);
+	printf("time_to_die: \033[0;31m%d\033[0m\n\n", t->time_to_die);
+	printf("time_to_eat: \033[0;32m%d\033[0m\n\n", t->time_to_eat);
+	printf("time_to_sleep: \033[0;34m%d\033[0m\n\n", t->time_to_sleep);
 	printf("must_eat_count: %d\n\n", t->must_eat_count);
 }
 

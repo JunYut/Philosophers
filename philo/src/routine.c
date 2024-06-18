@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:26:53 by we                #+#    #+#             */
-/*   Updated: 2024/06/18 08:32:37 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/18 10:40:14 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@ void	p_eat(t_philo *p, t_table *t)
 	if (p->current_time + t->time_to_eat >= p->starve_time)
 	{
 		pthread_mutex_unlock(&p->state_mutex);
-		pthread_mutex_unlock(&t->end_sim_mutex);
 		if (p->starve_time - p->current_time <= 0)
 			p_die(p, t, t->start_time);
 		else
-			usleep((p->starve_time - p->current_time) * 1000);
+			usleep_ms((p->starve_time - p->current_time));
 		p_die(p, t, t->start_time);
 		return ;
 	}
-	usleep(t->time_to_eat * 1000);
+	usleep_ms(t->time_to_eat);
 	p->eat_count++;
 	t->total_eat_count++;
 	p->starve_time = get_time_ms() + t->time_to_die;
@@ -80,7 +79,7 @@ void	p_sleep(t_philo *p, t_table *t)
 		if (p->starve_time - p->current_time <= 0)
 			p_die(p, t, t->start_time);
 		else
-			usleep((p->starve_time - p->current_time) * 1000);
+			usleep_ms((p->starve_time - p->current_time));
 		p_die(p, t, t->start_time);
 		return ;
 	}
@@ -88,7 +87,7 @@ void	p_sleep(t_philo *p, t_table *t)
 	*p->r_fork_status = 0;
 	pthread_mutex_unlock(p->left_fork);
 	*p->l_fork_status = 0;
-	usleep(t->time_to_sleep * 1000);
+	usleep_ms(t->time_to_sleep);
 	pthread_mutex_unlock(&p->state_mutex);
 }
 

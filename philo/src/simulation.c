@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/18 08:53:38 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/06/18 10:54:59 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	*philo_routine(void	*arg)
 	p = t->philos + i++;
 	if (t->philo_count == 1)
 	{
-		usleep(t->time_to_die * 1000);
+		usleep_ms(t->time_to_die);
 		p_die(p, t, t->start_time);
 		return (NULL);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:21:15 by we                #+#    #+#             */
-/*   Updated: 2024/06/07 15:22:46 by we               ###   ########.fr       */
+/*   Updated: 2024/06/18 11:06:37 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ void	log_activity(long start_time, int id, char *msg)
 
 	current_time = get_time_ms();
 	printf("%ldms: %d %s\n\n", current_time - start_time, id, msg);
+}
+
+void	usleep_ms(long ms)
+{
+	long	start_time;
+
+	start_time = get_time_ms();
+	while ((get_time_ms() - start_time) < ms)
+		usleep(500);
+	// printf("time: %ld\n", get_time_ms() - start_time);	// Debug
 }
 
 long	get_time_ms(void)
@@ -46,13 +56,17 @@ void	*ft_malloc(size_t size)
 long	ft_atoi(const char *str)
 {
 	long	num;
+	int		len;
 	int		i;
 
+	len = -1;
+	while (str[++len])
+		;
 	num = 0;
 	i = -1;
 	if (str[0] == '-')
 		++i;
-	while (++i < ft_strlen(str))
+	while (++i < len)
 	{
 		num = num * 10 + str[i] - '0';
 	}
@@ -61,12 +75,3 @@ long	ft_atoi(const char *str)
 	return (num);
 }
 
-int	ft_strlen(const char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len])
-		++len;
-	return (len);
-}
