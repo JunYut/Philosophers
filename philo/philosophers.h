@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:33:55 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/06/18 14:30:04 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/15 14:42:33 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	p_take_fork(t_philo *p, t_table *t, long start);
 void	p_sleep(t_philo *p, t_table *t);
 void	p_think(t_philo *p, t_table *t, long start);
 void	p_die(t_philo *p, t_table *t, long start);
+int		stop_routine(t_table *t, t_philo *p);
 
 void	init_env(t_table *t, char *argv[]);
 void	init_philos(t_philo *p, int count, t_table *t);

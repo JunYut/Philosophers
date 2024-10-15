@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:02:42 by we                #+#    #+#             */
-/*   Updated: 2024/06/18 12:59:02 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/15 14:55:58 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,23 @@ void	*philo_routine(void	*arg)
 		p_die(p, t, t->start_time);
 		return (NULL);
 	}
-	while (p->state != DEAD && !t->end_sim && p->eat_count < t->must_eat_count)
+	while (stop_routine(t, p))
 	{
 		p_think(p, t, t->start_time);
 		while (p->state != DEAD && !t->end_sim
 			&& (*p->r_fork_status != p->id || *p->l_fork_status != p->id))
 			p_take_fork(p, t, t->start_time);
-		// print_forks(t->forks_status, t->philo_count, 'i');	// Debug
 		p_eat(p, t);
 		p_sleep(p, t);
 	}
 	return (NULL);
+}
+
+int	stop_routine(t_table *t, t_philo *p)
+{
+	if (t->must_eat_count == 0)
+		return (1);
+	else if (p->state == DEAD || t->end_sim || p->eat_count == t->must_eat_count)
+		return (1);
+	return (0);
 }
