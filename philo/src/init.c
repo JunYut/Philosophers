@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:37:57 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/16 13:35:57 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/16 15:17:53 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@ int	init(t_table *table, char **av)
 	table->time_to_eat = ft_atoi(av[3]);
 	table->time_to_sleep = ft_atoi(av[4]);
 	table->must_eat_count = -1;
+	table->start_time = get_time_ms();
+	table->end_sim = false;
 	if (av[5])
 		table->must_eat_count = ft_atoi(av[5]);
+	pthread_mutex_init(&table->end_mutex, NULL);
 	init_fork(table);
 	init_philo(table);
 	return (1);
 }
 
-int init_philo(t_table *table)
+int	init_philo(t_table *table)
 {
 	t_philo	*philo;
 	int		i;
@@ -38,9 +41,10 @@ int init_philo(t_table *table)
 	{
 		philo[i].id = i + 1;
 		philo[i].eat_count = 0;
-		philo[i].starve_time = table->time_to_die;
+		philo[i].starve_time = table->start_time + table->time_to_die;
 		philo[i].left_fork = &table->fork[i];
 		philo[i].right_fork = &table->fork[(i + 1) % table->num_of_philo];
+		pthread_mutex_init(&philo[i].starve_mutex, NULL);
 	}
 	return (1);
 }
@@ -64,7 +68,10 @@ int	clean_up(t_table *table)
 
 	i = -1;
 	while (++i < table->num_of_philo)
+	{
 		pthread_mutex_destroy(&table->fork[i]);
+		pthread_mutex_destroy(&table->philo[i].starve_mutex);
+	}
 	free(table->fork);
 	free(table->philo);
 	return (1);
