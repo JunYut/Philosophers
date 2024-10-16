@@ -4,17 +4,18 @@ CFLAGS = -Wall -Wextra -Werror -Wpedantic -g
 SRC_DIR = src
 OBJ_DIR = obj
 
-SRC = $(wildcard $(SRC_DIR)/*.c) main.c
+SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+INC = -I.
 
 all: $(OBJ)
-	$(CC) $(CFLAGS) -o philo $(OBJ)
+	$(CC) $(CFLAGS) $(INC) $(OBJ) main.c -o philo
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 fsan:
-	$(CC) $(CFLAGS) -fsanitize=address -o philo $(OBJ)
+	$(CC) $(CFLAGS) $(INC) -fsanitize=address -o philo $(OBJ)
 
 clean:
 	rm -f $(OBJ)

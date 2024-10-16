@@ -1,0 +1,9 @@
+## Input
+` ./philo philo_count time_to_die time_to_eat time_to_sleep must_eat_count`
+
+## Constraints
+`1 <= philo_count <= 200`
+`time_to_die >= 60`
+`time_to_eat >=60`
+`time_to_sleep >=60`
+

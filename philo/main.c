@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:33:21 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/15 13:34:28 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/16 13:40:27 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 int	main(int ac, char **av)
 {
-	(void)ac;
-	(void)av;
-	printf("Hello, philosophers!\n");
+	t_table	table;
+
+	if (!validate(ac, av))
+		return (1);
+	init(&table, av);
+	// run_simulation(&table);
+	clean_up(&table);
 	return (0);
 }

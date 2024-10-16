@@ -6,15 +6,15 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:38:42 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/15 13:53:53 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/16 13:06:45 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int	is_digit(char *str);
+static int	is_num(char *str);
 
-int	validation(int ac, char **av)
+int	validate(int ac, char **av)
 {
 	int	i;
 
@@ -26,24 +26,29 @@ int	validation(int ac, char **av)
 	i = 0;
 	while (++i < ac)
 	{
-		if (is_digit(av[i]) == -1)
+		if (!is_num(av[i]))
 		{
 			printf("Error: arguments must be positive integers\n");
 			return (0);
 		}
+		if (ft_atoi(av[i]) < 0)
+		{
+			printf("Error: value too large\n");
+			return (0);
+		}
 	}
+	return (1);
 }
 
-static int	is_digit(char *str)
+static int	is_num(char *str)
 {
 	int	i;
 
-	i = 0;
-	while (str[i])
-	{
+	if (str[0] == '\0')
+		return (0);
+	i = -1;
+	while (str[++i])
 		if (str[i] < '0' || str[i] > '9')
-			return (-1);
-		i++;
-	}
-	return (0);
+			return (0);
+	return (1);
 }
