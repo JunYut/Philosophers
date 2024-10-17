@@ -7,15 +7,16 @@ OBJ_DIR = obj
 SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 INC = -I.
+LIB = -lpthread
 
 all: $(OBJ)
-	$(CC) $(CFLAGS) $(INC) $(OBJ) main.c -o philo
+	$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ) main.c -o philo
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 fsan:
-	$(CC) $(CFLAGS) $(INC) -fsanitize=address -o philo $(OBJ)
+	$(CC) $(CFLAGS) $(INC) $(LIB) -fsanitize=address -o philo $(OBJ)
 
 clean:
 	rm -f $(OBJ)
