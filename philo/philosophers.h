@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:33:27 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/16 15:36:19 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/18 12:04:15 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,15 @@ int		clean_up(t_table *table);
 int		validate(int ac, char **av);
 
 int		run_simulation(t_table *table);
-int		monitor(t_table *table);
+void	*monitor(void *data);
 void	*start_routine(void *data);
 void	sync_routine(t_table *table);
 void	p_eat(t_philo *philo, t_table *table);
 void	p_sleep(t_philo *philo, t_table *table);
 void	p_think(t_philo *philo, t_table *table);
 void	p_die(t_philo *philo, t_table *table);
+
+int		is_end_sim(t_table *table);
 
 void	log_activity(long start_time, int id, char *msg);
 void	usleep_ms(long ms);

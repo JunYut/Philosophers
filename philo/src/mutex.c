@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mutex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/15 13:33:21 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/17 15:08:56 by we               ###   ########.fr       */
+/*   Created: 2024/10/18 12:04:40 by we                #+#    #+#             */
+/*   Updated: 2024/10/18 12:04:52 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int ac, char **av)
+int	is_end_sim(t_table *table)
 {
-	t_table	table;
-
-	if (!validate(ac, av))
+	pthread_mutex_lock(&table->end_mutex);
+	if (table->end_sim)
+	{
+		pthread_mutex_unlock(&table->end_mutex);
 		return (1);
-	init(&table, av);
-	run_simulation(&table);
-	clean_up(&table);
+	}
+	pthread_mutex_unlock(&table->end_mutex);
 	return (0);
 }

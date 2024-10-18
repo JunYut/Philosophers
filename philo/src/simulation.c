@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:56:15 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/16 15:41:36 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/18 12:03:37 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	run_simulation(t_table *table)
 	pthread_t	monitor_thread;
 	int	i;
 
+	table->start_time = get_time_ms();
 	pthread_create(&monitor_thread, NULL, monitor, table);
 	i = -1;
 	while (++i < table->num_of_philo)
@@ -32,11 +33,13 @@ int	run_simulation(t_table *table)
 	return (1);
 }
 
-int	monitor(t_table *table)
+void	*monitor(void *data)
 {
-	(void)table;
+	t_table	*table;
+
+	table = (t_table *)data;
 	sync_routine(table);
-	return (1);
+	return (NULL);
 }
 
 void	*start_routine(void *data)
@@ -48,17 +51,13 @@ void	*start_routine(void *data)
 	t = (t_table *)data;
 	p = t->philo + i++;
 	sync_routine(t);
-	while (1)
+	while (!is_end_sim(t))
 	{
-		pthread_mutex_lock(&t->end_mutex);
-		if (t->end_sim)
-			break ;
-		pthread_mutex_unlock(&t->end_mutex);
 		p_think(p, t);
 		p_eat(p, t);
 		p_sleep(p, t);
 	}
-	return (1);
+	return (NULL);
 }
 
 void	sync_routine(t_table *table)

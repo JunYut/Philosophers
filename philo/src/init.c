@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:37:57 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/16 15:17:53 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/17 16:26:41 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	init(t_table *table, char **av)
 	table->time_to_eat = ft_atoi(av[3]);
 	table->time_to_sleep = ft_atoi(av[4]);
 	table->must_eat_count = -1;
-	table->start_time = get_time_ms();
 	table->end_sim = false;
 	if (av[5])
 		table->must_eat_count = ft_atoi(av[5]);
