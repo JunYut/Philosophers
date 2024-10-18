@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:33:27 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/18 12:08:08 by we               ###   ########.fr       */
+/*   Updated: 2024/10/18 12:20:49 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 
+# define WAIT 1000
 # define DEBUG "printf"
 
 typedef pthread_mutex_t	t_mutex;

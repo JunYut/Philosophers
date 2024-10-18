@@ -16,7 +16,7 @@ void	log_activity(long start_time, int id, char *msg)
 {
 	long	current_time;
 
-	current_time = get_time_ms();
+	current_time = get_time_ms() - WAIT;
 	printf("%ldms: %d %s\n\n", current_time - start_time, id, msg);
 }
 

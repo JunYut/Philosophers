@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:56:15 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/18 12:19:06 by we               ###   ########.fr       */
+/*   Updated: 2024/10/18 12:20:57 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ void	sync_routine(t_table *table)
 {
 	long	wait_time;
 
-	wait_time = table->start_time + 1000 - get_time_ms();
+	wait_time = table->start_time + WAIT - get_time_ms();
 	usleep_ms(wait_time);
 }
