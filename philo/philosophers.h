@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:33:27 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/18 12:04:15 by we               ###   ########.fr       */
+/*   Updated: 2024/10/18 12:08:08 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef pthread_mutex_t	t_mutex;
 
-// left_fork and right_fork are pointers, not allocated memory
+// left_fork and right_fork are pointers to fork in t_table
 typedef struct s_philo
 {
 	int			id;
@@ -66,6 +66,7 @@ void	p_think(t_philo *philo, t_table *table);
 void	p_die(t_philo *philo, t_table *table);
 
 int		is_end_sim(t_table *table);
+int		is_starving(t_philo *philo);
 
 void	log_activity(long start_time, int id, char *msg);
 void	usleep_ms(long ms);

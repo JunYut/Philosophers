@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:37:57 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/17 16:26:41 by we               ###   ########.fr       */
+/*   Updated: 2024/10/18 12:16:04 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	init_philo(t_table *table)
 	{
 		philo[i].id = i + 1;
 		philo[i].eat_count = 0;
-		philo[i].starve_time = table->start_time + table->time_to_die;
 		philo[i].left_fork = &table->fork[i];
 		philo[i].right_fork = &table->fork[(i + 1) % table->num_of_philo];
 		pthread_mutex_init(&philo[i].starve_mutex, NULL);
