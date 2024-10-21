@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:40:27 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/18 12:04:37 by we               ###   ########.fr       */
+/*   Updated: 2024/10/18 12:38:21 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	log_activity(long start_time, int id, char *msg)
 {
+	(void)start_time;
 	long	current_time;
 
 	current_time = get_time_ms() - WAIT;

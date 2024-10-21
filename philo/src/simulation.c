@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:56:15 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/18 12:20:57 by we               ###   ########.fr       */
+/*   Updated: 2024/10/18 18:14:57 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	*start_routine(void *data)
 	p = t->philo + i++;
 	sync_routine(t);
 	p->starve_time = get_time_ms() + t->time_to_die;
+	DEBUG("starve_time[%d]: %ld\n", i, p->starve_time - t->start_time - WAIT);
 	while (!is_end_sim(t))
 	{
 		p_think(p, t);
