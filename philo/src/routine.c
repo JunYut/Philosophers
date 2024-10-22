@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:45:53 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 15:04:40 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/22 15:27:11 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ void	p_take_forks(t_philo *philo, t_table *table)
 		return ;
 	pthread_mutex_lock(philo->left_fork);
 	log_activity(table, philo->id, "has taken a fork");
+	if (table->num_of_philo == 1)
+	{
+		usleep_ms(table->time_to_die);
+		pthread_mutex_unlock(philo->left_fork);
+		return ;
+	}
 	pthread_mutex_lock(philo->right_fork);
 	log_activity(table, philo->id, "has taken a fork");
 }
