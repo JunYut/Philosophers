@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:33:27 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/18 12:22:43 by we               ###   ########.fr       */
+/*   Updated: 2024/10/22 13:11:15 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ typedef struct s_philo
 {
 	int			id;
 	int			eat_count;
-	long		starve_time;
+	long		last_eat_time;
 	t_mutex		*left_fork;
 	t_mutex		*right_fork;
-	t_mutex		starve_mutex;
+	t_mutex		eat_mutex;
+	t_mutex		last_eat_mutex;
 	pthread_t	thread;
 }	t_philo;
 
@@ -67,7 +68,8 @@ void	p_think(t_philo *philo, t_table *table);
 void	p_die(t_philo *philo, t_table *table);
 
 int		is_end_sim(t_table *table);
-int		is_starving(t_philo *philo);
+int		is_starving(t_table *table, t_philo *philo);
+int		all_ate_enough(t_table *table);
 
 void	log_activity(long start_time, int id, char *msg);
 void	usleep_ms(long ms);

@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:56:15 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 12:51:38 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/22 13:19:05 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,12 @@ void	*monitor(void *data)
 
 	table = (t_table *)data;
 	sync_routine(table);
-	usleep_ms(15);
 	while (!is_end_sim(table))
 	{
 		i = -1;
 		while (++i < table->num_of_philo)
 		{
-			if (is_starving(table->philo + i))
+			if (is_starving(table, table->philo + i) || all_ate_enough(table))
 			{
 				pthread_mutex_lock(&table->end_mutex);
 				table->end_sim = true;
@@ -67,8 +66,8 @@ void	*start_routine(void *data)
 
 	t = (t_table *)data;
 	p = t->philo + i++;
+	p->last_eat_time = t->start_time + WAIT;
 	sync_routine(t);
-	p->starve_time = get_time_ms() + t->time_to_die;
 	while (!is_end_sim(t))
 	{
 		p_think(p, t);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:37:57 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/18 12:16:04 by we               ###   ########.fr       */
+/*   Updated: 2024/10/22 13:07:23 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	init_philo(t_table *table)
 		philo[i].eat_count = 0;
 		philo[i].left_fork = &table->fork[i];
 		philo[i].right_fork = &table->fork[(i + 1) % table->num_of_philo];
-		pthread_mutex_init(&philo[i].starve_mutex, NULL);
+		pthread_mutex_init(&philo[i].eat_mutex, NULL);
+		pthread_mutex_init(&philo[i].last_eat_mutex, NULL);
 	}
 	return (1);
 }
@@ -68,7 +69,8 @@ int	clean_up(t_table *table)
 	while (++i < table->num_of_philo)
 	{
 		pthread_mutex_destroy(&table->fork[i]);
-		pthread_mutex_destroy(&table->philo[i].starve_mutex);
+		pthread_mutex_destroy(&table->philo[i].eat_mutex);
+		pthread_mutex_destroy(&table->philo[i].last_eat_mutex);
 	}
 	free(table->fork);
 	free(table->philo);

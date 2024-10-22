@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:04:40 by we                #+#    #+#             */
-/*   Updated: 2024/10/22 12:51:51 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/22 13:19:21 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,34 @@ int	is_end_sim(t_table *table)
 	return (0);
 }
 
-int	is_starving(t_philo *philo)
+int	is_starving(t_table *table, t_philo *philo)
 {
-	pthread_mutex_lock(&philo->starve_mutex);
-	if (get_time_ms() >= philo->starve_time)
+	pthread_mutex_lock(&philo->last_eat_mutex);
+	if (get_time_ms() - philo->last_eat_time >= table->time_to_die)
 	{
-		pthread_mutex_unlock(&philo->starve_mutex);
+		pthread_mutex_unlock(&philo->last_eat_mutex);
 		return (1);
 	}
-	pthread_mutex_unlock(&philo->starve_mutex);
+	pthread_mutex_unlock(&philo->last_eat_mutex);
+	return (0);
+}
+
+int	all_ate_enough(t_table *table)
+{
+	int	i;
+
+	if (table->must_eat_count == -1)
+		return (0);
+	i = -1;
+	while (++i < table->num_of_philo)
+	{
+		pthread_mutex_lock(&table->philo[i].eat_mutex);
+		if (table->philo[i].eat_count == table->must_eat_count)
+		{
+			pthread_mutex_unlock(&table->philo[i].eat_mutex);
+			return (1);
+		}
+		pthread_mutex_unlock(&table->philo[i].eat_mutex);
+	}
 	return (0);
 }
