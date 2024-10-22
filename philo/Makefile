@@ -16,7 +16,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 fsan:
-	$(CC) $(CFLAGS) $(INC) $(LIB) -fsanitize=address -o philo $(OBJ)
+	$(CC) $(CFLAGS) $(INC) $(LIB) -fsanitize=thread main.c -o philo $(OBJ)
 
 clean:
 	rm -f $(OBJ)
