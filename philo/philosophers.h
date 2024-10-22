@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:33:27 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 13:11:15 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/22 14:23:39 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 
+# define DELAY 10
 # define WAIT 1000
 # define DEBUG printf
 
@@ -48,6 +49,7 @@ typedef struct s_table
 	long	start_time;
 	bool	end_sim;
 	t_mutex	end_mutex;
+	t_mutex	log_mutex;
 	t_mutex	*fork;
 	t_philo	*philo;
 }	t_table;
@@ -62,6 +64,8 @@ int		run_simulation(t_table *table);
 void	*monitor(void *data);
 void	*start_routine(void *data);
 void	sync_routine(t_table *table);
+
+void	p_take_forks(t_philo *philo, t_table *table);
 void	p_eat(t_philo *philo, t_table *table);
 void	p_sleep(t_philo *philo, t_table *table);
 void	p_think(t_philo *philo, t_table *table);
