@@ -6,20 +6,25 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:40:27 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 14:45:44 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/22 15:03:59 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	log_activity(t_mutex *log_mutex, long start_time, int id, char *msg)
+void	log_activity(t_table *table, int id, char *msg)
 {
 	long	current_time;
 
 	current_time = get_time_ms() - WAIT;
-	pthread_mutex_lock(log_mutex);
-	printf("%ldms: %d %s\n\n", current_time - start_time, id, msg);
-	pthread_mutex_unlock(log_mutex);
+	pthread_mutex_lock(&table->log_mutex);
+	if (table->end_sim)
+	{
+		pthread_mutex_unlock(&table->log_mutex);
+		return ;
+	}
+	printf("%ld %d %s\n\n", current_time - table->start_time, id, msg);
+	pthread_mutex_unlock(&table->log_mutex);
 }
 
 void	usleep_ms(long ms)

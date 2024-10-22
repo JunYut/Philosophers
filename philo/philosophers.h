@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:33:27 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 14:46:16 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/22 15:04:50 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		is_end_sim(t_table *table);
 int		is_starving(t_table *table, t_philo *philo);
 int		all_ate_enough(t_table *table);
 
-void	log_activity(t_mutex *log_mutex, long start_time, int id, char *msg);
+void	log_activity(t_table *table, int id, char *msg);
 void	usleep_ms(long ms);
 long	get_time_ms(void);
 int		ft_atoi(const char *str);

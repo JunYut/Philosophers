@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:56:15 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 13:19:05 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/22 14:50:39 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,11 @@ int	run_simulation(t_table *table)
 	pthread_create(&monitor_thread, NULL, monitor, table);
 	i = -1;
 	while (++i < table->num_of_philo)
-	{
 		pthread_create(&table->philo[i].thread, NULL, start_routine, table);
-	}
 	pthread_join(monitor_thread, NULL);
 	i = -1;
 	while (++i < table->num_of_philo)
-	{
 		pthread_join(table->philo[i].thread, NULL);
-	}
 	return (1);
 }
 
@@ -49,7 +45,6 @@ void	*monitor(void *data)
 			{
 				pthread_mutex_lock(&table->end_mutex);
 				table->end_sim = true;
-				p_die(table->philo + i, table);
 				pthread_mutex_unlock(&table->end_mutex);
 				return (NULL);
 			}
@@ -68,11 +63,14 @@ void	*start_routine(void *data)
 	p = t->philo + i++;
 	p->last_eat_time = t->start_time + WAIT;
 	sync_routine(t);
+	if (p->id % 2 == 0)
+		usleep_ms(DELAY);
 	while (!is_end_sim(t))
 	{
-		p_think(p, t);
+		p_take_forks(p, t);
 		p_eat(p, t);
 		p_sleep(p, t);
+		p_think(p, t);
 	}
 	return (NULL);
 }
