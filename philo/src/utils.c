@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:40:27 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/18 12:38:21 by we               ###   ########.fr       */
+/*   Updated: 2024/10/22 14:45:44 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	log_activity(long start_time, int id, char *msg)
+void	log_activity(t_mutex *log_mutex, long start_time, int id, char *msg)
 {
-	(void)start_time;
 	long	current_time;
 
 	current_time = get_time_ms() - WAIT;
+	pthread_mutex_lock(log_mutex);
 	printf("%ldms: %d %s\n\n", current_time - start_time, id, msg);
+	pthread_mutex_unlock(log_mutex);
 }
 
 void	usleep_ms(long ms)
