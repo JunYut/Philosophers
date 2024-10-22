@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:56:15 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 14:50:39 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/22 15:20:34 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	run_simulation(t_table *table)
 {
 	pthread_t	monitor_thread;
-	int	i;
+	int			i;
 
 	table->start_time = get_time_ms();
 	pthread_create(&monitor_thread, NULL, monitor, table);

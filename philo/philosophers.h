@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:33:27 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 15:04:50 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/22 15:20:18 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define DELAY 10
 # define WAIT 1000
-# define DEBUG printf
+# define DEBUG "printf"
 
 typedef pthread_mutex_t	t_mutex;
 
