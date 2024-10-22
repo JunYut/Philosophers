@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:38:42 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/16 13:06:45 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/22 15:35:54 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,19 @@ int	validate(int ac, char **av)
 	i = 0;
 	while (++i < ac)
 	{
-		if (!is_num(av[i]))
+		if (!is_num(av[i]) || ft_atoi(av[i]) < 0)
 		{
-			printf("Error: arguments must be positive integers\n");
+			if (!is_num(av[i]))
+				printf("Error: arguments must be positive integers\n");
+			else if (ft_atoi(av[i]) < 0)
+				printf("Error: value too large\n");
 			return (0);
 		}
-		if (ft_atoi(av[i]) < 0)
-		{
-			printf("Error: value too large\n");
-			return (0);
-		}
+	}
+	if (ft_atoi(av[1]) <= 0)
+	{
+		printf("Error: number of philosophers must be greater than 0\n");
+		return (0);
 	}
 	return (1);
 }
