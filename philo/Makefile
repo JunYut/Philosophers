@@ -15,8 +15,11 @@ all: $(OBJ)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-fsan:
+fsanMem:
 	$(CC) $(CFLAGS) $(INC) $(LIB) -fsanitize=address main.c -o philo $(OBJ)
+
+fsanThread:
+	$(CC) $(CFLAGS) $(INC) $(LIB) -fsanitize=thread main.c -o philo $(OBJ)
 
 clean:
 	rm -f $(OBJ)

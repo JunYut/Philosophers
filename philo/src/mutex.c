@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mutex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:04:40 by we                #+#    #+#             */
-/*   Updated: 2024/10/22 14:42:13 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/22 18:36:26 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ int	all_ate_enough(t_table *table)
 	{
 		pthread_mutex_lock(&table->philo[i].eat_mutex);
 		if (table->philo[i].eat_count >= table->must_eat_count)
-		{
-			pthread_mutex_unlock(&table->philo[i].eat_mutex);
 			count += 1;
-		}
 		pthread_mutex_unlock(&table->philo[i].eat_mutex);
 	}
 	if (count == table->num_of_philo)
