@@ -3,3 +3,4 @@ philo/philo
 *.a
 philo/out
 .vscode
+*.dSYM
