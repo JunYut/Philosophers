@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:45:53 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/29 21:04:57 by we               ###   ########.fr       */
+/*   Updated: 2024/10/29 22:01:06 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	p_take_forks(t_philo *philo, t_table *table)
 {
-	if (table->num_of_philo == 1)
+	if (table->num_of_philo == 1 || table->must_eat_count == 0)
 	{
 		usleep_ms(table->time_to_die);
 		return ;
