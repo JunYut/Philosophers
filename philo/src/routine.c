@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:45:53 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/29 13:24:33 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/29 21:04:57 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void	p_take_forks(t_philo *philo, t_table *table)
 		usleep_ms(table->time_to_die);
 		return ;
 	}
-	pthread_mutex_lock(philo->left_fork);
+	if (!is_end_sim(table))
+		pthread_mutex_lock(philo->left_fork);
 	log_activity(table, philo->id, "has taken a fork");
-	pthread_mutex_lock(philo->right_fork);
+	if (!is_end_sim(table))
+		pthread_mutex_lock(philo->right_fork);
 	log_activity(table, philo->id, "has taken a fork");
 }
 
