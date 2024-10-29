@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -Wpedantic -g
+CFLAGS = -Wall -Wextra -Werror -g3
 
 SRC_DIR = src
 OBJ_DIR = obj

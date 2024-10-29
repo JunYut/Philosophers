@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:37:57 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 14:29:05 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/29 12:58:15 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	init(t_table *table, char **av)
 		table->must_eat_count = ft_atoi(av[5]);
 	pthread_mutex_init(&table->end_mutex, NULL);
 	pthread_mutex_init(&table->log_mutex, NULL);
+	pthread_mutex_init(&table->philo_mutex, NULL);
 	init_fork(table);
 	init_philo(table);
 	return (1);
@@ -77,5 +78,6 @@ int	clean_up(t_table *table)
 	free(table->philo);
 	pthread_mutex_destroy(&table->end_mutex);
 	pthread_mutex_destroy(&table->log_mutex);
+	pthread_mutex_destroy(&table->philo_mutex);
 	return (1);
 }

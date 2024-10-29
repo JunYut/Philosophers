@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:33:27 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 15:20:18 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/29 12:55:34 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_table
 	bool	end_sim;
 	t_mutex	end_mutex;
 	t_mutex	log_mutex;
+	t_mutex	philo_mutex;
 	t_mutex	*fork;
 	t_philo	*philo;
 }	t_table;
