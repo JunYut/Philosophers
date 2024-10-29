@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:40:27 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 15:03:59 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/29 14:00:21 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	log_activity(t_table *table, int id, char *msg)
 
 	current_time = get_time_ms() - WAIT;
 	pthread_mutex_lock(&table->log_mutex);
-	if (table->end_sim)
+	if (is_end_sim(table))
 	{
 		pthread_mutex_unlock(&table->log_mutex);
 		return ;
