@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:45:53 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 15:27:11 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/29 13:24:33 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,19 @@
 
 void	p_take_forks(t_philo *philo, t_table *table)
 {
-	if (is_end_sim(table))
-		return ;
-	pthread_mutex_lock(philo->left_fork);
-	log_activity(table, philo->id, "has taken a fork");
 	if (table->num_of_philo == 1)
 	{
 		usleep_ms(table->time_to_die);
-		pthread_mutex_unlock(philo->left_fork);
 		return ;
 	}
+	pthread_mutex_lock(philo->left_fork);
+	log_activity(table, philo->id, "has taken a fork");
 	pthread_mutex_lock(philo->right_fork);
 	log_activity(table, philo->id, "has taken a fork");
 }
 
 void	p_eat(t_philo *philo, t_table *table)
 {
-	if (is_end_sim(table))
-		return ;
 	log_activity(table, philo->id, "is eating");
 	pthread_mutex_lock(&philo->last_eat_mutex);
 	philo->last_eat_time = get_time_ms();
@@ -46,16 +41,12 @@ void	p_eat(t_philo *philo, t_table *table)
 
 void	p_sleep(t_philo *philo, t_table *table)
 {
-	if (is_end_sim(table))
-		return ;
 	log_activity(table, philo->id, "is sleeping");
 	usleep_ms(table->time_to_sleep);
 }
 
 void	p_think(t_philo *philo, t_table *table)
 {
-	if (is_end_sim(table))
-		return ;
 	log_activity(table, philo->id, "is thinking");
 }
 
