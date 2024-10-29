@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:56:15 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/22 15:20:34 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/10/29 11:37:33 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	run_simulation(t_table *table)
 	pthread_create(&monitor_thread, NULL, monitor, table);
 	i = -1;
 	while (++i < table->num_of_philo)
-		pthread_create(&table->philo[i].thread, NULL, start_routine, table);
+		pthread_create(&table->philo[i].thread, NULL, start_routine, &table->philo[i]);
 	pthread_join(monitor_thread, NULL);
 	i = -1;
 	while (++i < table->num_of_philo)
@@ -61,7 +61,9 @@ void	*start_routine(void *data)
 
 	t = (t_table *)data;
 	p = t->philo + i++;
+	pthread_mutex_lock(&p->last_eat_mutex);
 	p->last_eat_time = t->start_time + WAIT;
+	pthread_mutex_unlock(&p->last_eat_mutex);
 	sync_routine(t);
 	if (p->id % 2 == 0)
 		usleep_ms(DELAY);
