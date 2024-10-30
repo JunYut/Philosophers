@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:45:53 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/10/29 22:01:06 by we               ###   ########.fr       */
+/*   Updated: 2024/10/30 09:00:20 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	p_take_forks(t_philo *philo, t_table *table)
 {
 	if (table->num_of_philo == 1 || table->must_eat_count == 0)
 	{
+		if (table->num_of_philo == 1 && table->must_eat_count != 0)
+			log_activity(table, philo->id, "has taken a fork");
 		usleep_ms(table->time_to_die);
 		return ;
 	}
